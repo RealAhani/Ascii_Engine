@@ -1,0 +1,37 @@
+*.exe
+*.json
+*.o
+*.a
+*.sa
+*.obj
+*.pdb
+*.log
+*.tlog
+*.bat
+*.sh
+*.so
+*.s
+*.lib
+*.dll
+*.l
+*.log
+*.txt
+*.sln
+*.vs
+*.pch
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.md
+!README.md
+!CMakelists.txt
+#this folder remain but not all contained files
+/Release
+#this folder remain but not all contained files
+/x64
+#this folder remain but not all contained files
+/Build
+#this folder remain but not all contained files
+/Debug
+#this folder remain but not all contained files
+/.vs
