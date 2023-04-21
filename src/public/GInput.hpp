@@ -1,8 +1,10 @@
 #pragma once
-namespace GPuzzle
+namespace A_E
 {
-	namespace GInput
-	{
+    namespace GPuzzle
+    {
+        namespace GInput
+        {
 #define UP 'w'
 #define UP 'W'
 #define DOWN 's'
@@ -13,17 +15,18 @@ namespace GPuzzle
 #define RIGHT 'D'
 #define EXIT 'Q'
 #define EXIT 'q'
-        // End defining Inputs
+            // End defining Inputs
 
-        enum class Direction : uint8_t {
-            up,
-            down,
-            left,
-            right,
-            Max
-        };
+            enum class Direction : uint8_t {
+                up,
+                down,
+                left,
+                right,
+                Max
+            };
 
-        void Get_key(char ch);
-	}
+            void Get_key(char ch);
+        }
+    }
+
 }
-

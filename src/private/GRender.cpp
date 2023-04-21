@@ -1,13 +1,13 @@
-#include "Puzzle_PCH.hpp"
+#include "Engine_PCH.hpp"
 #include "GRender.hpp"
 #include "Fram.hpp"
-GRender::GRender()
+A_E::GRender::GRender()
 {
 }
-GRender::~GRender()
+A_E::GRender::~GRender()
 {
 }
-void GRender::Draw(const int Delta_time)
+void A_E::GRender::Draw(const int Delta_time)
 {
 	Clean();
 	//draw fps
@@ -17,7 +17,7 @@ void GRender::Draw(const int Delta_time)
 	LOG(GPuzzle::prize::You_win);
 	//draw stuff
 }
-void GRender::Show_Game_Detail(const int Delta_time)
+void A_E::GRender::Show_Game_Detail(const int Delta_time)
 {
 	BGCOLOR(Color::Modifier{Color::BG_DEFAULT});
 	FGCOLOR(Color::Modifier{ Color::FG_BLUE });
@@ -31,7 +31,7 @@ void GRender::Show_Game_Detail(const int Delta_time)
 	LOG_N(Delta_time);
 	FGCOLOR(Color::Modifier{ Color::FG_GREEN });
 }
-void GRender::Clean()
+void A_E::GRender::Clean()
 {
 	CLS();
 }

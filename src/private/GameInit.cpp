@@ -1,13 +1,13 @@
-#include "Puzzle_PCH.hpp"
+#include "Engine_PCH.hpp"
 #include "GameInit.hpp"
 #include "GRender.hpp"
 #include "PuzzleGame.hpp"
 #include "Fram.hpp"
-GameInit::GameInit()
+A_E::GameInit::GameInit()
 {}
-GameInit::~GameInit() 
+A_E::GameInit::~GameInit()
 {}
-int GameInit::Initilize_Game(const PuzzleGame& game)
+int A_E::GameInit::Initilize_Game(const A_E::PuzzleGame& game)
 {
 	try
 	{
@@ -20,17 +20,17 @@ int GameInit::Initilize_Game(const PuzzleGame& game)
 	return 0;
 }
 
-void GameInit::Start_Game(const PuzzleGame& game)
+void A_E::GameInit::Start_Game(const A_E::PuzzleGame& game)
 {
-	GTimer benchmark_game_time{};
+	A_E::GTimer benchmark_game_time{};
 	int _DeltaTime{0};
-	GTimer::Start_Global_Timer();
+	A_E::GTimer::Start_Global_Timer();
 
 	while (!Get_GameOver(game))
 	{
 		benchmark_game_time.Start_Time();
 		//get input
-		GRender::Draw(_DeltaTime);
+		A_E::GRender::Draw(_DeltaTime);
 		Update_GameState(game, _DeltaTime);
 
 		benchmark_game_time.End_Time();
@@ -40,15 +40,15 @@ void GameInit::Start_Game(const PuzzleGame& game)
 		Pause_thread(_DeltaTime);
 	}
 }
-void GameInit::Pause_thread(const int Delta_time)
+void A_E::GameInit::Pause_thread(const int Delta_time)
 {
 	std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(Delta_time)));
 }
-void GameInit::Update_GameState(const PuzzleGame& game, const int Delta_time)
+void A_E::GameInit::Update_GameState(const A_E::PuzzleGame& game, const int Delta_time)
 {
 	game.Update_GameState(Delta_time);
 }
-bool GameInit::Get_GameOver(const PuzzleGame& game)
+bool A_E::GameInit::Get_GameOver(const A_E::PuzzleGame& game)
 {
 	return  game.Get_GameOver();
 }

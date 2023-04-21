@@ -1,9 +1,11 @@
 #pragma once
-#include "Puzzle_PCH.hpp"
-namespace GPuzzle
+#include "Engine_PCH.hpp"
+namespace A_E
 {
-	namespace GLoger
+	namespace GPuzzle
 	{
+		namespace GLoger
+		{
 #define BGCOLOR(b)\
 std::cout<<b
 
@@ -23,5 +25,6 @@ std::cout<<f
 #define CLS() system("CLS")
 
 
+		}
 	}
 }
