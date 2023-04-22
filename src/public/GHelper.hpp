@@ -11,6 +11,9 @@ namespace A_E
             class PuzzleTile;
             std::array<PuzzleTile, 16>& Randomizer(std::array<PuzzleTile, 16>& t_arr);
             PuzzleTile& Filler_tiles(std::array<PuzzleTile, 16>& t_arr);
+            int Whatis_Y(int index, int width);
+            int Whatis_X(int index, int width);
+            int Whatis_index(int width, int x, int y);
         }
         namespace prize
         {

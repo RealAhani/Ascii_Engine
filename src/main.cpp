@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 	A_E::PuzzleGame game{};
 	int code= A_E::GameInit::Initilize_Game(game);
 	LOG_CODE(code);
-
+	
 	WAIT();
 	return 0;
 }
