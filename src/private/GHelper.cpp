@@ -30,32 +30,59 @@ namespace A_E
 		{
 			return Deg * MY_PI / 180;
 		}
-		float get_sin(float opposit, float hypotenus)
+		float get_sin(const Vector2D& v1, const Vector2D& v2)
 		{
-			return sin(opposit / hypotenus);
+			return sin(v1.get_length() / v2.get_length());
 		}
-		float get_Cos(float adjucent, float hypotenus)
+		float get_Cos(const Vector2D& v1, const Vector2D& v2)
 		{
-			return cos(adjucent / hypotenus);
+			return cos(v1.get_length() / v2.get_length());
 		}
-		float get_Tan(float opposit, float adjucent)
+		float get_Tan(const Vector2D& v1, const Vector2D& v2)
 		{
-			return tan(opposit / adjucent);
+			return tan(v1.get_length() / v2.get_length());
 		}
-		float get_CoTan(float adjucent, float opposit)
+		float get_CoTan(const Vector2D& v1, const Vector2D& v2)
 		{
-			return tan(adjucent/ opposit);
+			return tan(v1.get_length() / v2.get_length());
 		}
-		
-		float get_ArcCos();
-		float get_ArcSin();
-		float get_ArcTan();
-		float get_ArcCoTan();
-		float get_ArcCsc();
-		float get_ArcSec();
-		float get_ArcCot();
-		float get_CSC();
-		float get_SEC();
+
+		float get_ArcCos(const Vector2D& v1, const Vector2D& v2)
+		{
+			return acos(v1.get_length() / v2.get_length());
+		}
+		float get_ArcSin(const Vector2D& v1, const Vector2D& v2)
+		{
+			return asin(v1.get_length() / v2.get_length());
+		}
+		float get_ArcTan(const Vector2D& v1, const Vector2D& v2)
+		{
+			return atan(v1.get_length() / v2.get_length());
+		}
+		float get_ArcCoTan(const Vector2D& v1, const Vector2D& v2)
+		{
+			return  tanf(v1.get_length() / v2.get_length());
+		}
+		float get_ArcCsc(const Vector2D& v1, const Vector2D& v2)
+		{
+			return 0.f;
+		}
+		float get_ArcSec(const Vector2D& v1, const Vector2D& v2)
+		{
+			return 0.f;
+		}
+		float get_ArcCot(const Vector2D& v1, const Vector2D& v2)
+		{
+			return 0.f;
+		}
+		float get_CSC(const Vector2D& v1, const Vector2D& v2)
+		{
+			return 0.f;
+		}
+		float get_SEC(const Vector2D& v1, const Vector2D& v2)
+		{
+			return 0.f;
+		}
 
 		Vector2D& Scale_Vec(int scaler, Vector2D& vec)
 		{
@@ -64,13 +91,14 @@ namespace A_E
 
 		Vector2D unit_Vec(const Vector2D& vec)
 		{
-			return Vector2D{vec.get_info().x / vec.get_length(),vec.get_info().y / vec.get_length()};
+			return Vector2D{ vec.get_info().x / vec.get_length(),vec.get_info().y / vec.get_length() };
 		}
-		Vector2D& Neget_Vec(Vector2D& vec)
+		Vector2D Neget_Vec(const Vector2D& vec)
 		{
-			vec.get_info().x * -1;
-			vec.get_info().y * -1;
-			return vec;
+			A_E::Point2D temp = vec.get_info();
+			temp.x *= (-1);
+			temp.y *= (-1);
+			return Vector2D{ temp };
 		}
 		int Dot_product(const Vector2D& vec1, const Vector2D& vec2)
 		{
@@ -82,8 +110,7 @@ namespace A_E
 		}*/
 		int calc_length(Vector2D& vec)
 		{
-			vec.set_length(sqrt(pow(vec.get_info().x,2) + pow(vec.get_info().y,2)));
-			return vec.get_length();
+			return sqrt(pow(vec.get_info().x, 2) + pow(vec.get_info().y, 2));
 		}
 	}
 }

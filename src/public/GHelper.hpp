@@ -26,24 +26,24 @@ namespace A_E
 	{
 		float get_Rot_Deg(float Rad);
 		float get_Rot_Rad(float Deg);
-		float get_sin(float opposit, float hypotenus);
-		float get_Cos(float adjucent, float hypotenus);
-		float get_Tan(float opposit, float adjucent);
-		float get_CoTan(float adjucent, float opposit);
+		float get_sin(const Vector2D& v1, const Vector2D& v2);
+		float get_Cos(const Vector2D& v1, const Vector2D& v2);
+		float get_Tan(const Vector2D& v1, const Vector2D& v2);
+		float get_CoTan(const Vector2D& v1, const Vector2D& v2);
 
-		float get_ArcCos();
-		float get_ArcSin();
-		float get_ArcTan();
-		float get_ArcCoTan();
-		float get_ArcCsc();
-		float get_ArcSec();
-		float get_ArcCot();
+		float get_ArcCos(const Vector2D& v1, const Vector2D& v2);
+		float get_ArcSin(const Vector2D& v1, const Vector2D& v2);
+		float get_ArcTan(const Vector2D& v1, const Vector2D& v2);
+		float get_ArcCoTan(const Vector2D& v1, const Vector2D& v2);
+		float get_ArcCsc(const Vector2D& v1, const Vector2D& v2);
+		float get_ArcSec(const Vector2D& v1, const Vector2D& v2);
+		float get_ArcCot(const Vector2D& v1, const Vector2D& v2);
 
-		float get_CSC();
-		float get_SEC();
+		float get_CSC(const Vector2D& v1, const Vector2D& v2);
+		float get_SEC(const Vector2D& v1, const Vector2D& v2);
 
 		Vector2D& Scale_Vec(int scaler, Vector2D& vec);
-		Vector2D& Neget_Vec(Vector2D& vec);
+		Vector2D Neget_Vec(const Vector2D& vec);
 		Vector2D unit_Vec(const Vector2D& vec);
 
 		int Dot_product(const Vector2D& vec1, const Vector2D& vec2);
