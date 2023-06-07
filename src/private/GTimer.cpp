@@ -7,7 +7,7 @@ A_E::GTimer::GTimer()
 {
 }
 A_E::GTimer::~GTimer()
-{	
+{
 }
 
 /*
@@ -62,7 +62,7 @@ e.x whole program running time
 */
 double A_E::GTimer::Update_Global_Timer()
 {
-	using namespace std::chrono; 
+	using namespace std::chrono;
 	double dt{};
 	GMilisecond mili_seconds{};
 	GSecond seconds{};
@@ -71,7 +71,8 @@ double A_E::GTimer::Update_Global_Timer()
 	{
 	case GTimer::ETimer_Mode::Persice_Second:
 		mili_seconds = duration_cast<GMilisecond>(now - s_elapsedtime);
-		dt = static_cast<double>(mili_seconds.count())/1000;
+		//dt = static_cast<double>(mili_seconds.count())/1000;
+		dt = static_cast<double>(GSecond{ mili_seconds.count() }.count());
 		break;
 	case GTimer::ETimer_Mode::Normal_Second:
 		seconds = duration_cast<GSecond>(now - s_elapsedtime);
@@ -111,7 +112,8 @@ double A_E::GTimer::Update_Timer()
 	{
 	case GTimer::ETimer_Mode::Persice_Second:
 		mili_seconds = duration_cast<GMilisecond>(now - s_elapsedtime);
-		dt = static_cast<double>(mili_seconds.count()) / 1000;
+		//dt = static_cast<double>(mili_seconds.count()) / 1000;
+		dt = static_cast<double>(GSecond{ mili_seconds.count() }.count());
 		break;
 	case GTimer::ETimer_Mode::Normal_Second:
 		seconds = duration_cast<GSecond>(now - s_elapsedtime);
@@ -122,7 +124,7 @@ double A_E::GTimer::Update_Timer()
 	}
 	return dt;
 }
-void A_E::GTimer::Start_Timer(const ETimer_Mode&& mode )
+void A_E::GTimer::Start_Timer(const ETimer_Mode&& mode)
 {
 	m_mode = mode;
 	Reset_Timer();

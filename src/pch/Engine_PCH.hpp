@@ -7,6 +7,8 @@
 #include <array>
 #include <thread>
 #include <chrono>
+#include <Windows.h>
+#include<conio.h>
 //
 // user defined classes
 //

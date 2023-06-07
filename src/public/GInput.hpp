@@ -5,16 +5,11 @@ namespace A_E
     {
         namespace GInput
         {
-#define UP 'w'
 #define UP 'W'
-#define DOWN 's'
 #define DOWN 'S'
-#define LEFT 'a'
 #define LEFT 'A'
-#define RIGHT 'd'
 #define RIGHT 'D'
 #define EXIT 'Q'
-#define EXIT 'q'
             // End defining Inputs
 
             enum class Direction : uint8_t {
@@ -24,8 +19,17 @@ namespace A_E
                 right,
                 Max
             };
-
-            void Get_key(char ch);
+            struct Keyboard_Value {
+                char key{};
+                int value{};
+            };
+           // void Get_key(char ch);
+            
+            template<size_t size>
+            void Input_Init(const std::array<A_E::GPuzzle::GInput::Keyboard_Value,size>& keys);
+            
+            template <size_t size>
+            void sendinput(const std::array<A_E::GPuzzle::GInput::Keyboard_Value, size>& keys, void (*input_fptr)(int));
         }
     }
 
