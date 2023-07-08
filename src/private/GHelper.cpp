@@ -6,6 +6,7 @@ namespace A_E
 {
 	namespace GPuzzle::GHelper
 	{
+		//This function are helper for work with 1D array index if you need 2D array 
 		int Whatis_Y(int index, int width)
 		{
 			return (index / width == 1.0) ? 1 : ((index / width > 1.0) ? index / width : 0);

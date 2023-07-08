@@ -46,8 +46,8 @@ namespace A_E
             Code code{};
         public:
             explicit Modifier(Code pCode) : code(pCode) {}
-            friend std::ostream&
-                operator<<(std::ostream& os, const Modifier& mod)
+
+            friend std::ostream& operator<<(std::ostream& os, const Modifier& mod)
             {
                 return os << "\033[" << mod.code << "m";
             }

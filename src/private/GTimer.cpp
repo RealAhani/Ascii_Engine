@@ -10,8 +10,9 @@ A_E::GTimer::~GTimer()
 {
 }
 
+#pragma region RESET_TIME
 /*
-START Reset time func
+START Reset the time for zeroing out the time elapsed and start time funcs
 */
 void A_E::GTimer::Reset_Time()
 {
@@ -30,8 +31,11 @@ void A_E::GTimer::Reset_Timer()
 END
 */
 
+#pragma endregion
+
+#pragma region DELTA_TIME_FUNCTIONS
 /*
-START this functions used for benchmark the code
+START this functions used for benchmark the code need start and end to calculate time 
 */
 void  A_E::GTimer::Start_Time()
 {
@@ -55,7 +59,9 @@ void  A_E::GTimer::Calculate_DeltaTime()
 /*
 END
 */
+#pragma endregion
 
+#pragma region TIMER_SEC
 /*
 START these functions used for Global time
 e.x whole program running time
@@ -96,7 +102,9 @@ double A_E::GTimer::Get_Global_ElapsedTime()
 /*
 END
 */
+#pragma endregion
 
+#pragma region TIMER_MILI
 /*
 START these functions used for creating normal timer
 e.x little timer for running events
@@ -137,3 +145,4 @@ double A_E::GTimer::Get_ElapsedTime()
 /*
 END
 */
+#pragma endregion

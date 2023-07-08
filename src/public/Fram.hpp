@@ -3,6 +3,7 @@ namespace A_E{
 
 	class Frame_Setting {
 	private:
+		//TODO Create Vsync for frame rate functionality
 		//60 fps ==> .016 sec|| 16 mili
 		//30 fps ==> .033 sec|| 33 mili
 		//20 fps ==> .05 sec|| 50 mili

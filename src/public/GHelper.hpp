@@ -5,7 +5,7 @@ namespace A_E
 {
 	namespace GPuzzle
 	{
-		enum EFPS_Setting {
+		enum class EFPS_Setting:uint8_t {
 			fps_60, fps_30, fps_20, fps_10
 		};
 		namespace GHelper
