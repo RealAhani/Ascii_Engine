@@ -36,7 +36,7 @@ void A_E::GameInit::Start_Game(const A_E::PuzzleGame& game)
 		//TODO we need threads for each primary function
 		benchmark_game_time.Start_Time();
 
-		//TODO puzzle game whole class name should change name and gave a generic name for inheritance
+		/** TODO: puzzle game whole class name should change name and gave a generic name for inheritance*/
 		//get input
 		A_E::GPuzzle::GInput::SendPlayerInput<4>(mykeys, &A_E::PuzzleGame::Move_V, &A_E::PuzzleGame::Move_H);
 
