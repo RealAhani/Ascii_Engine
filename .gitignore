@@ -15,7 +15,6 @@
 *.dll
 *.l
 *.log
-*.txt
 *.sln
 *.vs
 *.pch

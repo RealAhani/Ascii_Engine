@@ -4,8 +4,6 @@
 #include "PuzzleGame.hpp"
 #include "Fram.hpp"
 
-
-
 A_E::GameInit::GameInit()
 {
 }
@@ -31,6 +29,11 @@ void A_E::GameInit::Start_Game(const A_E::PuzzleGame& game)
 	int _DeltaTime{ 0 };
 	A_E::GTimer::Start_Global_Timer();
 	const std::array<A_E::GPuzzle::GInput::Keyboard_Value, 4> mykeys{ {{'W',1},{'S',-1},{'A',-1},{'D',1} } };
+	A_E::GRender::Add_to_buffer("start rendering .... \n", A_E::ERenderRow::Body);
+	A_E::GRender::Add_to_buffer("test2 \n", A_E::ERenderRow::Body);
+	A_E::GRender::Add_to_buffer(GPuzzle::prize::You_win.data(), A_E::ERenderRow::Body);
+	A_E::GRender::Add_to_buffer("End of rendering .... \n", A_E::ERenderRow::Fotter);
+	A_E::GRender::Add_to_buffer("test3 \n", A_E::ERenderRow::Fotter);
 	while (!Get_GameOver(game))
 	{
 		//TODO we need threads for each primary function
