@@ -1,10 +1,10 @@
 #include "Engine_PCH.hpp"
 #include "Vector2D.hpp"
 
-Vector2D::Vector2D(const int x, const int y) :m_vec_point{ x,y }, m_length{ A_E::GMath::calc_length(*this) }
+Vector2D::Vector2D(const int x, const int y) :m_vec_point{ x,y }, m_length{ AE::GMath::calc_length(*this) }
 {
 }
-Vector2D::Vector2D(const A_E::Point2D& point) :m_vec_point{ point }
+Vector2D::Vector2D(const AE::Point2D& point) :m_vec_point{ point }
 {
 }
 Vector2D::Vector2D(const Vector2D& vec)
@@ -56,11 +56,11 @@ int Vector2D::get_length()const
 {
 	return m_length;
 }
-A_E::Point2D Vector2D::get_info()
+AE::Point2D Vector2D::get_info()
 {
 	return m_vec_point;
 }
-A_E::Point2D Vector2D::get_info()const
+AE::Point2D Vector2D::get_info()const
 {
 	return m_vec_point;
 }

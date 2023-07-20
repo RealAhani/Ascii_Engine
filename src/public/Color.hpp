@@ -1,5 +1,5 @@
 #pragma once
-namespace A_E
+namespace AE
 {
     namespace Color
     {

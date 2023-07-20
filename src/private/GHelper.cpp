@@ -2,7 +2,7 @@
 #include "GHelper.hpp"
 #include "Vector2D.hpp"
 
-namespace A_E
+namespace AE
 {
 	namespace GPuzzle::GHelper
 	{
@@ -96,7 +96,7 @@ namespace A_E
 		}
 		Vector2D Neget_Vec(const Vector2D& vec)
 		{
-			A_E::Point2D temp = vec.get_info();
+			AE::Point2D temp = vec.get_info();
 			temp.x *= (-1);
 			temp.y *= (-1);
 			return Vector2D{ temp };

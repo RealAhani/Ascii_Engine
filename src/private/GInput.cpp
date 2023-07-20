@@ -5,7 +5,7 @@
 
 
 template<size_t size>
-void A_E::GPuzzle::GInput::Input_Init(const std::array<A_E::GPuzzle::GInput::Keyboard_Value, size>& keys)
+void AE::GPuzzle::GInput::Input_Init(const std::array<AE::GPuzzle::GInput::Keyboard_Value, size>& keys)
 {
 	//sendinput(keys, &H_Move);
 }

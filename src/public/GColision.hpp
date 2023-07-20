@@ -1,11 +1,11 @@
 #pragma once
-namespace A_E
+namespace AE
 {
-	class Colision
+	class GColision
 	{
 	public:
-		Colision()=default;
-		~Colision() = default;
+		GColision()=default;
+		~GColision() = default;
 
 
 		bool is_collide(/*positon*/);

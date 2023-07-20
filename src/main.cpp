@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 
 	
 	//A_E stands for Ascii Engine
-	using namespace A_E;
+	using namespace AE;
 	PuzzleGame game{};
 	int code = GameInit::Initilize_Game(game);
 	LOG_CODE(code);

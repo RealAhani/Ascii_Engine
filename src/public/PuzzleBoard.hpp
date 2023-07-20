@@ -1,5 +1,5 @@
 #pragma once
-namespace A_E
+namespace AE
 {
     class GameTile;
     class PuzzleBoard {

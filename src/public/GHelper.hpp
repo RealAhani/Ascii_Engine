@@ -1,7 +1,7 @@
 #pragma once
 
 class Vector2D;
-namespace A_E
+namespace AE
 {
 	namespace GPuzzle
 	{

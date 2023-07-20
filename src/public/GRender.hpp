@@ -1,7 +1,7 @@
 #pragma once
 #include<Color.hpp>
 
-namespace A_E
+namespace AE
 {
 	
 	class Frame_Setting;
@@ -39,13 +39,13 @@ namespace A_E
 		~GRender() = default;
 
 		///Debuger that show on the header of the terminal that wich key is currently pressed
-		static A_E::GPuzzle::GInput::Keyboard_Value s_pressedkey;
+		static AE::GPuzzle::GInput::Keyboard_Value s_pressedkey;
 		
 		///main function for draw every thing on the screen (terminal)
 		static void Draw(const int Delta_time);
 		
 		///add to specific buffer array like body or header or footer 
-		static bool Add_to_buffer(const char* str,const A_E::ERenderRow &&render_row);
+		static bool Add_to_buffer(const char* str,const AE::ERenderRow &&render_row);
 		
 		///clean the all buffer 
 		static bool Clean_buffer();

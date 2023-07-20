@@ -3,7 +3,7 @@
 //TODO remove this include 
 #include"GHelper.hpp"
 
-namespace A_E
+namespace AE
 {
 	struct Point2D {
 		int x{}, y{};
@@ -14,7 +14,7 @@ class Vector2D {
 public:
 	Vector2D(const int x, const int y);
 	Vector2D(const Vector2D& vec);
-	Vector2D(const A_E::Point2D& point);
+	Vector2D(const AE::Point2D& point);
 	~Vector2D() = default;
 
 	Vector2D& operator = (const Vector2D& rvec);
@@ -26,10 +26,10 @@ public:
 	friend std::ostream& operator << (std::ostream& os, const Vector2D& rvec);
 public:
 	int get_length()const;
-	A_E::Point2D get_info();
-	A_E::Point2D get_info()const;
+	AE::Point2D get_info();
+	AE::Point2D get_info()const;
 private:
-	A_E::Point2D m_vec_point{};
+	AE::Point2D m_vec_point{};
 	int m_length{};
 private:
 	float get_Rotation();

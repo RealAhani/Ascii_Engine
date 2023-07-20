@@ -1,7 +1,7 @@
 #pragma once
 #include "GRender.hpp"
 
-namespace A_E
+namespace AE
 {
 	class PuzzleGame;
 	namespace GPuzzle
@@ -45,23 +45,23 @@ namespace A_E
 
 
 			template <size_t size>
-			static int SendPlayerInput(const std::array<A_E::GPuzzle::GInput::Keyboard_Value, size>& keys,
-									   void(A_E::PuzzleGame::* move_v)(int), void(A_E::PuzzleGame::* move_h)(int))
+			static int SendPlayerInput(const std::array<AE::GPuzzle::GInput::Keyboard_Value, size>& keys,
+									   void(AE::PuzzleGame::* move_v)(int), void(AE::PuzzleGame::* move_h)(int))
 			{
-				A_E::PuzzleGame gm;
+				AE::PuzzleGame gm;
 				if (GetAsyncKeyState(VK_ESCAPE))
 					return -1;
 				if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState(VK_DOWN))
 				{
-					A_E::GRender::s_pressedkey.key = 'i';
-					A_E::GRender::s_pressedkey.value = 5;
+					AE::GRender::s_pressedkey.key = 'i';
+					AE::GRender::s_pressedkey.value = 5;
 					(gm.*move_v)(5);
 					return 1;
 				}
 				else if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_LEFT))
 				{
-					A_E::GRender::s_pressedkey.key = 'i';
-					A_E::GRender::s_pressedkey.value = -5;
+					AE::GRender::s_pressedkey.key = 'i';
+					AE::GRender::s_pressedkey.value = -5;
 					(gm.*move_v)(-5);
 					return 1;
 				}
@@ -70,21 +70,21 @@ namespace A_E
 					if (GetAsyncKeyState(i.key))
 					{
 						//new code
-						if (i.key == A_E::GPuzzle::GInput::UP || i.key == A_E::GPuzzle::GInput::up
-							|| i.key == A_E::GPuzzle::GInput::DOWN || i.key == A_E::GPuzzle::GInput::down
+						if (i.key == AE::GPuzzle::GInput::UP || i.key == AE::GPuzzle::GInput::up
+							|| i.key == AE::GPuzzle::GInput::DOWN || i.key == AE::GPuzzle::GInput::down
 							)
 						{
-							A_E::GRender::s_pressedkey.key = i.key;
-							A_E::GRender::s_pressedkey.value = i.value;
+							AE::GRender::s_pressedkey.key = i.key;
+							AE::GRender::s_pressedkey.value = i.value;
 							(gm.*move_v)(i.value);
 							return 1;
 						}
-						else if (i.key == A_E::GPuzzle::GInput::RIGHT || i.key == A_E::GPuzzle::GInput::right
-								 || i.key == A_E::GPuzzle::GInput::LEFT || i.key == A_E::GPuzzle::GInput::left
+						else if (i.key == AE::GPuzzle::GInput::RIGHT || i.key == AE::GPuzzle::GInput::right
+								 || i.key == AE::GPuzzle::GInput::LEFT || i.key == AE::GPuzzle::GInput::left
 								 )
 						{
-							A_E::GRender::s_pressedkey.key = i.key;
-							A_E::GRender::s_pressedkey.value = i.value;
+							AE::GRender::s_pressedkey.key = i.key;
+							AE::GRender::s_pressedkey.value = i.value;
 							(gm.*move_h)(i.value);
 							return 1;
 						}
@@ -94,8 +94,8 @@ namespace A_E
 					}
 				}
 
-				A_E::GRender::s_pressedkey.key = 'N';
-				A_E::GRender::s_pressedkey.value = 0;
+				AE::GRender::s_pressedkey.key = 'N';
+				AE::GRender::s_pressedkey.value = 0;
 				(gm.*move_v)(0);
 				(gm.*move_h)(0);
 				return 1;
