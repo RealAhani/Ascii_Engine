@@ -1,5 +1,6 @@
 #pragma once
 #include "GRender.hpp"
+#include "GWorld.hpp"
 
 namespace AE
 {
@@ -58,11 +59,19 @@ namespace AE
 					(gm.*move_v)(5);
 					return 1;
 				}
+				/**
+				///TODO its for test
+				**/
+				if(GetAsyncKeyState(VK_RETURN))
+					AE::world::GWorld<2>::Go_to_next_level();
+				/**
+				///TODO its for test
+				**/
 				else if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_LEFT))
 				{
 					AE::GRender::s_pressedkey.key = 'i';
 					AE::GRender::s_pressedkey.value = -5;
-					(gm.*move_v)(-5);
+					(gm.*move_h)(-5);
 					return 1;
 				}
 				for (auto& i : keys)

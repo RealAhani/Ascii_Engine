@@ -4,10 +4,34 @@ namespace AE
 	class GMap
 	{
 	public:
-		
-		GMap() = default;
-		~GMap() = default;
 
+		GMap()
+		{
+			Generate_map_id();
+		}
+		~GMap()
+		{
+		}
+		GMap(const AE::GMap& map)
+		{
+			if (this != &map)
+			{
+				this->m_mapstr = map.m_mapstr;
+				this->m_mapname = map.m_mapname;
+				this->m_mapId = map.m_mapId;
+			}
+		}
+
+		GMap& operator =(GMap& map)
+		{
+			if (this == &map)
+				return *this;
+			this->m_mapstr = map.m_mapstr;
+			this->m_mapname = map.m_mapname;
+			this->m_mapId = map.m_mapId;
+
+			return *this;
+		}
 
 		inline void Set_map_name(const std::string_view&& mapname)noexcept
 		{
@@ -20,6 +44,10 @@ namespace AE
 		inline std::size_t Get_id()noexcept
 		{
 			return m_mapId;
+		}
+		inline std::string& Get_map_Shape()noexcept
+		{
+			return m_mapstr;
 		}
 		void Set_map_Shape(const std::string_view& shape)noexcept;
 	private:

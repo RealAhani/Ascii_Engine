@@ -30,10 +30,11 @@ bool AE::GRender::Add_to_buffer(const char* str, const AE::ERenderRow&& render_r
 	}
 	return true;
 }
+
 bool AE::GRender::Clean_buffer()
 {
-	if (m_body_buffer.size() > 0
-		and m_footer_buffer.size() > 0)
+	///just body is important for cleaning buffer
+	if (m_body_buffer.size() > 0)
 	{
 		m_header_buffer.clear();
 		m_body_buffer.clear();

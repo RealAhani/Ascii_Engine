@@ -39,9 +39,15 @@ namespace AE
 		void GLevel::init_map(const std::string_view& map_shape_str, std::string_view&& mapname)
 		{
 			if (!m_map)
-				m_map = std::make_unique<GMap>();
+				m_map = std::make_shared<GMap>();
 			m_map->Set_map_Shape(map_shape_str);
 			m_map->Set_map_name(std::move(mapname));
+		}
+		AE::GMap* GLevel::Get_map()
+		{
+			if (m_map)
+				return m_map.get();
+			return nullptr;
 		}
 	}
 }

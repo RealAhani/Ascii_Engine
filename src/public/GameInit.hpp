@@ -13,6 +13,8 @@ namespace AE
 		static void Pause_thread(const int Delta_time);
 		static void Update_GameState(const AE::PuzzleGame& game, const int Delta_time);
 		static void World_init();
+		static void Renderer_init();
+		static void Levels_init();
 	private:
 		GameInit(const AE::GameInit& gi) = delete;
 		static bool Get_GameOver(const AE::PuzzleGame& game);

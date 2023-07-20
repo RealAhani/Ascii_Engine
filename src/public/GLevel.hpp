@@ -15,22 +15,42 @@ namespace AE
 		class GLevel
 		{
 		public:
-			GLevel() = default;
-			~GLevel() = default;
+			GLevel()
+			{
+			}
+			~GLevel()
+			{
+			}
+			GLevel(const AE::lvl::GLevel& lvl)
+			{
+				if (this != &lvl)
+				{
+					this->m_lvl_state = lvl.m_lvl_state;
+					this->m_map = lvl.m_map;
+				}
+			}
+			AE::lvl::GLevel& operator =(const AE::lvl::GLevel& lvl)
+			{
+				if (this == &lvl)
+				{
+					return *this;
+				}
+				this->m_lvl_state = lvl.m_lvl_state;
+				this->m_map = lvl.m_map;
+				return *this;
+			}
 
+			Lvl_state& Set_lvl_state(const Lvl_state&& lvlstate);
+			void init_map(const std::string_view& map_shape_str, std::string_view&& mapname);
+			AE::GMap* Get_map();
 			inline Lvl_state& Get_lvl_state()noexcept
 			{
 				return m_lvl_state;
 			}
 
-			Lvl_state& Set_lvl_state(const Lvl_state&& lvlstate);
-
-			void init_map(const std::string_view& map_shape_str, std::string_view&& mapname);
-
 		private:
-			std::unique_ptr<GMap>m_map {};
+			std::shared_ptr<GMap>m_map {};
 			Lvl_state m_lvl_state {};
-
 		};
 	}
 }
