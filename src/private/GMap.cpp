@@ -11,7 +11,10 @@ namespace AE
 	void GMap::Set_map_Shape(const std::string_view& shape)noexcept
 	{
 		if (shape.size() > 0)
+		{
 			m_mapstr = shape;
+			m_map_size_by_char_count = shape.size();
+		}
 	}
 
 	void GMap::Generate_map_id()

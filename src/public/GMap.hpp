@@ -19,6 +19,7 @@ namespace AE
 				this->m_mapstr = map.m_mapstr;
 				this->m_mapname = map.m_mapname;
 				this->m_mapId = map.m_mapId;
+				this->m_map_size_by_char_count = map.m_map_size_by_char_count;
 			}
 		}
 
@@ -29,6 +30,7 @@ namespace AE
 			this->m_mapstr = map.m_mapstr;
 			this->m_mapname = map.m_mapname;
 			this->m_mapId = map.m_mapId;
+			this->m_map_size_by_char_count = map.m_map_size_by_char_count;
 
 			return *this;
 		}
@@ -50,10 +52,15 @@ namespace AE
 			return m_mapstr;
 		}
 		void Set_map_Shape(const std::string_view& shape)noexcept;
+		inline std::size_t Get_map_size()noexcept
+		{
+			return m_map_size_by_char_count;
+		}
 	private:
 		std::string m_mapstr {};
 		std::string m_mapname {};
 		std::size_t m_mapId {};
+		std::size_t m_map_size_by_char_count {};
 
 		std::size_t Get_map_id()noexcept;
 		void Generate_map_id();

@@ -9,6 +9,7 @@
 #include <chrono>
 #include <Windows.h>
 #include <conio.h>
+#include <bitset>
 //
 // user defined classes
 //

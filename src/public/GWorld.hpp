@@ -55,6 +55,10 @@ namespace AE
 			{
 				AE::GRender::Clean_buffer();
 			}
+			inline static std::array< AE::lvl::GLevel, size>& Get_all_levels()
+			{
+				return m_levels;
+			}
 		private:
 			static inline std::array<AE::lvl::GLevel, size> m_levels {};
 			static inline std::size_t s_current_lvl { 0 };

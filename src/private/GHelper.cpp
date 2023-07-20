@@ -22,7 +22,7 @@ namespace AE
 	}
 	namespace GMath
 	{
-#define MY_PI 3.14
+#define MY_PI 3.14f
 		float get_Rot_Deg(float Rad)
 		{
 			return Rad * 180 / MY_PI;
@@ -33,36 +33,36 @@ namespace AE
 		}
 		float get_sin(const Vector2D& v1, const Vector2D& v2)
 		{
-			return sin(v1.get_length() / v2.get_length());
+			return ( float )sin(v1.get_length() / v2.get_length());
 		}
 		float get_Cos(const Vector2D& v1, const Vector2D& v2)
 		{
-			return cos(v1.get_length() / v2.get_length());
+			return ( float )cos(v1.get_length() / v2.get_length());
 		}
 		float get_Tan(const Vector2D& v1, const Vector2D& v2)
 		{
-			return tan(v1.get_length() / v2.get_length());
+			return ( float )tan(v1.get_length() / v2.get_length());
 		}
 		float get_CoTan(const Vector2D& v1, const Vector2D& v2)
 		{
-			return tan(v1.get_length() / v2.get_length());
+			return ( float )tan(v1.get_length() / v2.get_length());
 		}
 
 		float get_ArcCos(const Vector2D& v1, const Vector2D& v2)
 		{
-			return acos(v1.get_length() / v2.get_length());
+			return (float)acos(v1.get_length() / v2.get_length());
 		}
 		float get_ArcSin(const Vector2D& v1, const Vector2D& v2)
 		{
-			return asin(v1.get_length() / v2.get_length());
+			return ( float )asin(v1.get_length() / v2.get_length());
 		}
 		float get_ArcTan(const Vector2D& v1, const Vector2D& v2)
 		{
-			return atan(v1.get_length() / v2.get_length());
+			return ( float )atan(v1.get_length() / v2.get_length());
 		}
 		float get_ArcCoTan(const Vector2D& v1, const Vector2D& v2)
 		{
-			return  tanf(v1.get_length() / v2.get_length());
+			return  tanf(( float )v1.get_length() / ( float )v2.get_length());
 		}
 		float get_ArcCsc(const Vector2D& v1, const Vector2D& v2)
 		{
@@ -111,7 +111,7 @@ namespace AE
 		}*/
 		int calc_length(Vector2D& vec)
 		{
-			return sqrt(pow(vec.get_info().x, 2) + pow(vec.get_info().y, 2));
+			return (int)sqrt(pow(vec.get_info().x, 2) + pow(vec.get_info().y, 2));
 		}
 	}
 }
