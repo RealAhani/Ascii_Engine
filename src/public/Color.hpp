@@ -41,15 +41,25 @@ namespace A_E
             BG_BRIGHT_WHITE= 107,
             BG_DEFAULT = 49
         };
-        class Modifier {
+        class Modifier
+        {
         private:
-            Code code{};
+            Code m_code {};
         public:
-            explicit Modifier(Code pCode) : code(pCode) {}
-
+            Modifier()
+            {
+                this->set_color_code(Code::FG_DEFAULT);
+            }
+            explicit Modifier(Code pCode) : m_code { pCode }
+            {
+            }
+            inline void set_color_code(Code code)noexcept
+            {
+                m_code = code;
+            }
             friend std::ostream& operator<<(std::ostream& os, const Modifier& mod)
             {
-                return os << "\033[" << mod.code << "m";
+                return os << "\033[" << mod.m_code << "m";
             }
         };
     }

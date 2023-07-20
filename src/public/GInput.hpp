@@ -25,16 +25,18 @@ namespace A_E
 
 			// End defining Inputs
 
-			enum class Direction : uint8_t {
+			enum class Direction : uint8_t
+			{
 				E_up,
 				E_down,
 				E_left,
 				E_right,
 				E_Max
 			};
-			struct Keyboard_Value {
-				char key{};
-				int value{};
+			struct Keyboard_Value
+			{
+				char key {};
+				int value {};
 			};
 
 			// void Get_key(char ch);
@@ -43,43 +45,60 @@ namespace A_E
 
 
 			template <size_t size>
-			static void SendPlayerInput(const std::array<A_E::GPuzzle::GInput::Keyboard_Value, size>& keys,
-				void(A_E::PuzzleGame::* move_v)(int), void(A_E::PuzzleGame::* move_h)(int))
+			static int SendPlayerInput(const std::array<A_E::GPuzzle::GInput::Keyboard_Value, size>& keys,
+									   void(A_E::PuzzleGame::* move_v)(int), void(A_E::PuzzleGame::* move_h)(int))
 			{
 				A_E::PuzzleGame gm;
-				//if (GetAsyncKeyState(VK_ESCAPE))
-					// game_over = true;
-					for (auto& i : keys)
+				if (GetAsyncKeyState(VK_ESCAPE))
+					return -1;
+				if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState(VK_DOWN))
+				{
+					A_E::GRender::s_pressedkey.key = 'i';
+					A_E::GRender::s_pressedkey.value = 5;
+					(gm.*move_v)(5);
+					return 1;
+				}
+				else if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_LEFT))
+				{
+					A_E::GRender::s_pressedkey.key = 'i';
+					A_E::GRender::s_pressedkey.value = -5;
+					(gm.*move_v)(-5);
+					return 1;
+				}
+				for (auto& i : keys)
+				{
+					if (GetAsyncKeyState(i.key))
 					{
-						if (GetAsyncKeyState(i.key))
+						//new code
+						if (i.key == A_E::GPuzzle::GInput::UP || i.key == A_E::GPuzzle::GInput::up
+							|| i.key == A_E::GPuzzle::GInput::DOWN || i.key == A_E::GPuzzle::GInput::down
+							)
 						{
-							//new code
-							if (i.key == A_E::GPuzzle::GInput::UP || i.key == A_E::GPuzzle::GInput::up
-								|| i.key == A_E::GPuzzle::GInput::DOWN || i.key == A_E::GPuzzle::GInput::down)
-							{
-								A_E::GRender::s_pressedkey.key=i.key;
-								A_E::GRender::s_pressedkey.value=i.value;
-								(gm.*move_v)(i.value);
-								return;
-							}
-							else if (i.key == A_E::GPuzzle::GInput::RIGHT || i.key == A_E::GPuzzle::GInput::right
-								|| i.key == A_E::GPuzzle::GInput::LEFT || i.key == A_E::GPuzzle::GInput::left)
-							{
-								A_E::GRender::s_pressedkey.key=i.key;
-								A_E::GRender::s_pressedkey.value=i.value;
-								(gm.*move_h)(i.value);
-								return;
-							}
-							//old code has just this part and no gaigantic if and else if
-							//input_fptr(i.value);
-							return;
+							A_E::GRender::s_pressedkey.key = i.key;
+							A_E::GRender::s_pressedkey.value = i.value;
+							(gm.*move_v)(i.value);
+							return 1;
 						}
+						else if (i.key == A_E::GPuzzle::GInput::RIGHT || i.key == A_E::GPuzzle::GInput::right
+								 || i.key == A_E::GPuzzle::GInput::LEFT || i.key == A_E::GPuzzle::GInput::left
+								 )
+						{
+							A_E::GRender::s_pressedkey.key = i.key;
+							A_E::GRender::s_pressedkey.value = i.value;
+							(gm.*move_h)(i.value);
+							return 1;
+						}
+						//old code has just this part and no gaigantic if and else if
+						//input_fptr(i.value);
+						return 1;
 					}
-				
-				A_E::GRender::s_pressedkey.key='N';
-				A_E::GRender::s_pressedkey.value=0;
+				}
+
+				A_E::GRender::s_pressedkey.key = 'N';
+				A_E::GRender::s_pressedkey.value = 0;
 				(gm.*move_v)(0);
 				(gm.*move_h)(0);
+				return 1;
 			}
 		}
 	}

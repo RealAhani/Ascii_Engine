@@ -42,6 +42,20 @@ bool A_E::GRender::Clean_buffer()
 	}
 	return false;
 }
+
+void A_E::GRender::Log_based_on_shapes()
+{
+
+	for (const auto& chr : m_body_buffer)
+	{
+		for (const auto& res : m_shapes)
+		{
+			if (res.symbole == chr)
+				FGCOLOR(*res.m_color_code_FG.get());
+		}
+		LOG(chr);
+	}
+}
 void A_E::GRender::Render_game_details(const int Delta_time)
 {
 	//Header 
@@ -80,8 +94,9 @@ void A_E::GRender::Draw_Header(const int Delta_time)
 
 void A_E::GRender::Draw_Body(const int Delta_time)
 {
-	FGCOLOR(Color::Modifier { Color::FG_BRIGHT_CYAN });
-	LOG(m_body_buffer);
+	/*FGCOLOR(Color::Modifier { Color::FG_BRIGHT_CYAN });
+	LOG(m_body_buffer);*/
+	Log_based_on_shapes();
 }
 
 void A_E::GRender::Draw_footer(const int Delta_time)
