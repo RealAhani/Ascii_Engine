@@ -4,7 +4,8 @@ namespace AE
 	class PuzzleGame;
 	class GRender;
 	class Frame_Setting;
-	class GameInit {
+	class GameInit
+	{
 	public:
 		GameInit();
 		~GameInit();
@@ -16,7 +17,9 @@ namespace AE
 		static void Renderer_init();
 		static void Levels_init();
 	private:
+		static inline int m_DeltaTime { 0 };
 		GameInit(const AE::GameInit& gi) = delete;
 		static bool Get_GameOver(const AE::PuzzleGame& game);
+		static void Init_window(int window_width, int window_heigth, int font_w, int font_h);
 	};
 }
