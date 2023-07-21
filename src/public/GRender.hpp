@@ -45,7 +45,11 @@ namespace AE
 		static void Draw(const int Delta_time);
 		
 		///add to specific buffer array like body or header or footer 
-		static bool Add_to_buffer(const char* str,const AE::ERenderRow &&render_row);
+		static bool Add_to_buffer(std::string&& str,const AE::ERenderRow &&render_row);
+
+
+		static std::string& String_analyzer(std::string& str);
+
 		
 		///clean the all buffer 
 		static bool Clean_buffer();

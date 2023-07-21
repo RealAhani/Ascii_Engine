@@ -28,7 +28,7 @@ int AE::GameInit::Initilize_Game(const AE::PuzzleGame& game)
 
 void AE::GameInit::Start_Game(const AE::PuzzleGame& game)
 {
-	Init_window(260, 150, 10, 18);
+	Init_window(90, 25, 10, 15);
 
 	///init Timer and Time for using Delta time and FPS usage and thread Sleep
 	AE::GTimer benchmark_game_time {};
@@ -73,11 +73,13 @@ void AE::GameInit::Update_GameState(const AE::PuzzleGame& game, const int Delta_
 }
 void AE::GameInit::World_init()
 {
-	///init levels and maps
-	Levels_init();
 
 	///init setting for char color rendering
 	Renderer_init();
+
+	///init levels and maps
+	Levels_init();
+
 
 	///fotter init 
 	AE::GRender::Add_to_buffer("\n", AE::ERenderRow::Fotter);
@@ -109,12 +111,12 @@ bool AE::GameInit::Get_GameOver(const AE::PuzzleGame& game)
 void AE::GameInit::Init_window(int window_width, int window_heigth, int font_w, int font_h)
 {
 	HANDLE m_outhandle { GetStdHandle(STD_OUTPUT_HANDLE) };
-	HANDLE m_inhandle { GetStdHandle(STD_INPUT_HANDLE) };
+	//HANDLE m_inhandle { GetStdHandle(STD_INPUT_HANDLE) };
 
 	std::wstring win_name { L"ASCII_ENGINE" };
 
 	SMALL_RECT rect_win = { 0,0,( short )window_width,( short )window_heigth };
-	SetConsoleWindowInfo(m_outhandle, TRUE, &rect_win);
+	//SetConsoleWindowInfo(m_outhandle, TRUE, &rect_win);
 	COORD coord = { ( short )window_width, ( short )window_heigth };
 	SetConsoleScreenBufferSize(m_outhandle, coord);
 	SetConsoleActiveScreenBuffer(m_outhandle);
@@ -133,17 +135,17 @@ void AE::GameInit::Init_window(int window_width, int window_heigth, int font_w, 
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	GetConsoleScreenBufferInfo(m_outhandle, &csbi);
 
-	rect_win = { 0, 0 ,( short )window_width - 1, ( short )window_heigth - 1 };
+	//rect_win = { 0, 0 ,( short )window_width - 1, ( short )window_heigth - 1 };
 	SetConsoleWindowInfo(m_outhandle, TRUE, &rect_win);
 
 	SetConsoleMode(m_outhandle, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
-	CHAR_INFO* m_bufScreen = new CHAR_INFO[window_width * window_heigth];
-	memset(m_bufScreen, 0, sizeof(CHAR_INFO) * window_width * window_heigth);
+	//CHAR_INFO* m_bufScreen = new CHAR_INFO[window_width * window_heigth];
+	//memset(m_bufScreen, 0, sizeof(CHAR_INFO) * window_width * window_heigth);
 
 	//Write_win_title(window_width, window_heigth);
 	wchar_t s[25];
 	swprintf_s(s, 25, L"AE - %s ", win_name.c_str());
 	SetConsoleTitle(s);
-	WriteConsoleOutput(m_outhandle, m_bufScreen, { ( short )window_width, ( short )window_heigth }, { 0,0 }, &rect_win);
+	//WriteConsoleOutput(m_outhandle, m_bufScreen, { ( short )window_width, ( short )window_heigth }, { 0,0 }, &rect_win);
 }
 

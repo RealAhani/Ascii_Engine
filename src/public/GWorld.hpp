@@ -45,6 +45,7 @@ namespace AE
 
 			static void Go_to_next_level()
 			{
+				CLS();
 				Clean_level();
 				Show_lvl();
 				if (m_levels.size() - 1 > s_current_lvl)

@@ -1,7 +1,6 @@
 #include "Engine_PCH.hpp"
 #include "GRender.hpp"
 #include "Fram.hpp"
-
 //definition of a test static struct mem for know wich key with wich value is pressed (debugging perpuse)
 AE::GPuzzle::GInput::Keyboard_Value AE::GRender::s_pressedkey {};
 
@@ -12,17 +11,19 @@ void AE::GRender::Draw(const int Delta_time)
 	//Render the game
 	Render_game_details(Delta_time);
 }
-bool AE::GRender::Add_to_buffer(const char* str, const AE::ERenderRow&& render_row)
+bool AE::GRender::Add_to_buffer(std::string&& str, const AE::ERenderRow&& render_row)
 {
-	if (str == nullptr)
+	if (str.size()<=0)
 		return false;
 	switch (render_row)
 	{
 		case ERenderRow::Header:
+
 			m_header_buffer += str;
 			break;
 		case ERenderRow::Body:
-			m_body_buffer += str;
+			m_body_buffer += String_analyzer(str);
+
 			break;
 		case ERenderRow::Fotter:
 			m_footer_buffer += str;
@@ -30,7 +31,23 @@ bool AE::GRender::Add_to_buffer(const char* str, const AE::ERenderRow&& render_r
 	}
 	return true;
 }
-
+std::string& AE::GRender::String_analyzer(std::string& str)
+{
+	for (std::size_t i{0};i<str.size();++i)
+	{
+		for (const auto& res : m_shapes)
+		{
+			if (res.symbole == str.at(i))
+			{
+				std::string test = AE::Color::Modifier::Create_Color_String(str.at(i), *res.m_color_code_FG.get()).data();
+				str=str.replace(i,1,test);
+	//for some reason after we replace the specific char with a string coler code the size increase to 6===> char +5 so this 5 is for extera added length
+				i += 5;
+			}
+		}
+	}
+	return str;
+}
 bool AE::GRender::Clean_buffer()
 {
 	///just body is important for cleaning buffer
@@ -47,15 +64,15 @@ bool AE::GRender::Clean_buffer()
 void AE::GRender::Log_based_on_shapes()
 {
 
-	for (const auto& chr : m_body_buffer)
+	/*for (const auto& chr : m_body_buffer)
 	{
 		for (const auto& res : m_shapes)
 		{
 			if (res.symbole == chr)
 				FGCOLOR(*res.m_color_code_FG.get());
 		}
-		LOG(chr);
-	}
+	}*/
+		LOG(m_body_buffer);
 }
 void AE::GRender::Render_game_details(const int Delta_time)
 {
@@ -68,7 +85,8 @@ void AE::GRender::Render_game_details(const int Delta_time)
 }
 void AE::GRender::Clean()
 {
-	CLS();
+	//CLS();
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD { 0,0 });
 }
 
 void AE::GRender::Draw_Header(const int Delta_time)
