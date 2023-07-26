@@ -3,7 +3,7 @@
 #include "GRender.hpp"
 #include "PuzzleGame.hpp"
 #include "Fram.hpp"
-#include "GWorld.hpp"
+#include "GWindow.hpp"
 
 
 AE::GameInit::GameInit()
@@ -28,14 +28,15 @@ int AE::GameInit::Initilize_Game(const AE::PuzzleGame& game)
 
 void AE::GameInit::Start_Game(const AE::PuzzleGame& game)
 {
-	Init_window(90, 25, 10, 15);
+	
+	Init_window(std::wstring{L"Debug"}, 100, 50, 15, 15);
 
 	///init Timer and Time for using Delta time and FPS usage and thread Sleep
 	AE::GTimer benchmark_game_time {};
 	AE::GTimer::Start_Global_Timer();
-
+	Frame_Setting fram;
 	///init input keys that should use in the game 
-	const std::array<AE::GPuzzle::GInput::Keyboard_Value, 4> mykeys { {{'W',1},{'S',-1},{'A',-1},{'D',1} } };
+	const std::array<AE::GPuzzle::GInput::Keyboard_Value, 5> mykeys { {{'W',1},{'S',-1},{'A',-1},{'D',1} ,{'V',1}}};
 
 	World_init();
 
@@ -46,7 +47,7 @@ void AE::GameInit::Start_Game(const AE::PuzzleGame& game)
 
 		/** TODO: puzzle game whole class name should change name and gave a generic name for inheritance*/
 		///get input
-		if (AE::GPuzzle::GInput::SendPlayerInput<4>(mykeys, &AE::PuzzleGame::Move_V, &AE::PuzzleGame::Move_H) < 0)
+		if (AE::GPuzzle::GInput::SendPlayerInput<5>(mykeys, &AE::PuzzleGame::Move_V, &AE::PuzzleGame::Move_H) < 0)
 			return;
 
 		///Rendering 
@@ -59,6 +60,9 @@ void AE::GameInit::Start_Game(const AE::PuzzleGame& game)
 		m_DeltaTime = benchmark_game_time.Get_DeltaTime();
 		///if vsync =on for 10fps
 		///_DeltaTime =100;
+		
+		if (m_DeltaTime < 16 and fram.Is_Vsync_On())
+			m_DeltaTime = 50;
 		Pause_thread(m_DeltaTime);
 	}
 }
@@ -108,44 +112,44 @@ bool AE::GameInit::Get_GameOver(const AE::PuzzleGame& game)
 {
 	return  game.Get_GameOver();
 }
-void AE::GameInit::Init_window(int window_width, int window_heigth, int font_w, int font_h)
+void AE::GameInit::Init_window(const std::wstring& win_name,int window_width, int window_heigth, int font_w, int font_h)
 {
-	HANDLE m_outhandle { GetStdHandle(STD_OUTPUT_HANDLE) };
-	//HANDLE m_inhandle { GetStdHandle(STD_INPUT_HANDLE) };
+	//HANDLE m_outhandle { GetStdHandle(STD_OUTPUT_HANDLE) };
+	////HANDLE m_inhandle { GetStdHandle(STD_INPUT_HANDLE) };
 
-	std::wstring win_name { L"ASCII_ENGINE" };
+	//std::wstring win_name { L"ASCII_ENGINE" };
 
-	SMALL_RECT rect_win = { 0,0,( short )window_width,( short )window_heigth };
+	//SMALL_RECT rect_win = { 0,0,( short )window_width,( short )window_heigth };
+	////SetConsoleWindowInfo(m_outhandle, TRUE, &rect_win);
+	//COORD coord = { ( short )window_width, ( short )window_heigth };
+	//SetConsoleScreenBufferSize(m_outhandle, coord);
+	//SetConsoleActiveScreenBuffer(m_outhandle);
+
+	//// Set the font size now that the screen buffer has been assigned to the console
+	//CONSOLE_FONT_INFOEX cfi;
+	//cfi.cbSize = sizeof(cfi);
+	//cfi.nFont = 0;
+	//cfi.dwFontSize.X = font_w;
+	//cfi.dwFontSize.Y = font_w;
+	//cfi.FontFamily = FF_DONTCARE;
+	//cfi.FontWeight = FW_NORMAL;
+
+	//wcscpy_s(cfi.FaceName, L"Consolas");
+	//SetCurrentConsoleFontEx(m_outhandle, false, &cfi);
+	//CONSOLE_SCREEN_BUFFER_INFO csbi;
+	//GetConsoleScreenBufferInfo(m_outhandle, &csbi);
+
+	////rect_win = { 0, 0 ,( short )window_width - 1, ( short )window_heigth - 1 };
 	//SetConsoleWindowInfo(m_outhandle, TRUE, &rect_win);
-	COORD coord = { ( short )window_width, ( short )window_heigth };
-	SetConsoleScreenBufferSize(m_outhandle, coord);
-	SetConsoleActiveScreenBuffer(m_outhandle);
 
-	// Set the font size now that the screen buffer has been assigned to the console
-	CONSOLE_FONT_INFOEX cfi;
-	cfi.cbSize = sizeof(cfi);
-	cfi.nFont = 0;
-	cfi.dwFontSize.X = font_w;
-	cfi.dwFontSize.Y = font_h;
-	cfi.FontFamily = FF_DONTCARE;
-	cfi.FontWeight = FW_NORMAL;
+	//SetConsoleMode(m_outhandle, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+	////CHAR_INFO* m_bufScreen = new CHAR_INFO[window_width * window_heigth];
+	////memset(m_bufScreen, 0, sizeof(CHAR_INFO) * window_width * window_heigth);
 
-	wcscpy_s(cfi.FaceName, L"Consolas");
-	SetCurrentConsoleFontEx(m_outhandle, false, &cfi);
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	GetConsoleScreenBufferInfo(m_outhandle, &csbi);
-
-	//rect_win = { 0, 0 ,( short )window_width - 1, ( short )window_heigth - 1 };
-	SetConsoleWindowInfo(m_outhandle, TRUE, &rect_win);
-
-	SetConsoleMode(m_outhandle, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
-	//CHAR_INFO* m_bufScreen = new CHAR_INFO[window_width * window_heigth];
-	//memset(m_bufScreen, 0, sizeof(CHAR_INFO) * window_width * window_heigth);
-
-	//Write_win_title(window_width, window_heigth);
-	wchar_t s[25];
-	swprintf_s(s, 25, L"AE - %s ", win_name.c_str());
-	SetConsoleTitle(s);
-	//WriteConsoleOutput(m_outhandle, m_bufScreen, { ( short )window_width, ( short )window_heigth }, { 0,0 }, &rect_win);
+	////Write_win_title(window_width, window_heigth);
+	//wchar_t s[25];
+	//swprintf_s(s, 25, L"AE - %s ", win_name.c_str());
+	//SetConsoleTitle(s);
+	////WriteConsoleOutput(m_outhandle, m_bufScreen, { ( short )window_width, ( short )window_heigth }, { 0,0 }, &rect_win);
+	GWindow::CreateWin(win_name, window_width, window_heigth,font_w, font_h);
 }
-

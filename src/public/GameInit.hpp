@@ -2,8 +2,6 @@
 namespace AE
 {
 	class PuzzleGame;
-	class GRender;
-	class Frame_Setting;
 	class GameInit
 	{
 	public:
@@ -20,6 +18,6 @@ namespace AE
 		static inline int m_DeltaTime { 0 };
 		GameInit(const AE::GameInit& gi) = delete;
 		static bool Get_GameOver(const AE::PuzzleGame& game);
-		static void Init_window(int window_width, int window_heigth, int font_w, int font_h);
+		static void Init_window(const std::wstring& win_name, int window_width, int window_heigth, int font_w, int font_h);
 	};
 }

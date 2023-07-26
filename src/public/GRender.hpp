@@ -34,6 +34,9 @@ namespace AE
 
 		///every shape that we can use in the game with ascii rendere and specific color
 		static inline std::vector<Shape> m_shapes {};
+
+	/// 
+		friend class GWindow;
 	public:
 		GRender() = default;
 		~GRender() = default;

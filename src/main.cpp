@@ -2,7 +2,7 @@
 #include "GameInit.hpp"
 #include "PuzzleGame.hpp"
 
-//mem leak preprosesor only for msvc++
+///mem leak preprosesor only for msvc++
 #define _CRTDBG_MAP_ALLOC
 #include <cstdlib>
 #include <crtdbg.h>
@@ -12,7 +12,7 @@
 #define new DBG_NEW
 #endif
 #endif
-//mem leak preprosesor only for msvc++
+///mem leak preprosesor only for msvc++
 
 int main(int argc, char** argv)
 {
@@ -32,6 +32,6 @@ int main(int argc, char** argv)
 	return 0;
 }
 //random
-//input
-//map
-//array puzzle
+//AI
+//network
+//audio

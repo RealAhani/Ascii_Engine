@@ -24,6 +24,8 @@ namespace AE
 			constexpr auto EXIT = 'Q';
 			constexpr auto exit = 'q';
 
+			constexpr auto VSYNC = 'V';
+			constexpr auto vsync = 'v';
 			// End defining Inputs
 
 			enum class Direction : uint8_t
@@ -95,6 +97,14 @@ namespace AE
 							AE::GRender::s_pressedkey.key = i.key;
 							AE::GRender::s_pressedkey.value = i.value;
 							(gm.*move_h)(i.value);
+							return 1;
+						}
+						else if (i.key == AE::GPuzzle::GInput::VSYNC || i.key == AE::GPuzzle::GInput::vsync)
+						{
+							AE::GRender::s_pressedkey.key = i.key;
+							AE::GRender::s_pressedkey.value = i.value;
+							Frame_Setting fm;
+							fm.Set_Vsync(true);
 							return 1;
 						}
 						//old code has just this part and no gaigantic if and else if
