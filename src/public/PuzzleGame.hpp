@@ -1,17 +1,20 @@
 #pragma once
-namespace A_E
+
+namespace AE
 {
 	class PuzzleGame {
 	private:
 		bool Is_GameOver{};
-		bool Win_Condition();
+		bool Win_Condition{};
 	public:
-		PuzzleGame(/* args */) :Is_GameOver{ false }
-		{
-		}
-		~PuzzleGame() {}
-		bool Get_GameOver()const { return Is_GameOver; }
-		void Update_GameState(const double time)const {}
-	};
 
+		PuzzleGame(/* args */);
+		~PuzzleGame();
+		bool Get_GameOver()const;
+		void Update_GameState(const double time)const;
+
+		void Move_H(int val);
+		void Move_V(int val);
+	};
 }
+	

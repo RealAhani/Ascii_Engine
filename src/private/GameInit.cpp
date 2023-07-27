@@ -1,54 +1,155 @@
-#include "Engine_PCH.hpp"
+﻿#include "Engine_PCH.hpp"
 #include "GameInit.hpp"
 #include "GRender.hpp"
 #include "PuzzleGame.hpp"
 #include "Fram.hpp"
-A_E::GameInit::GameInit()
-{}
-A_E::GameInit::~GameInit()
-{}
-int A_E::GameInit::Initilize_Game(const A_E::PuzzleGame& game)
+#include "GWindow.hpp"
+
+
+AE::GameInit::GameInit()
+{
+}
+AE::GameInit::~GameInit()
+{
+}
+int AE::GameInit::Initilize_Game(const AE::PuzzleGame& game)
 {
 	try
 	{
 		Start_Game(game);
 	}
-	catch (const std::exception&)
+	catch (const std::exception& e)
 	{
+		LOG(e.what());
 		return 1;
 	}
 	return 0;
 }
 
-void A_E::GameInit::Start_Game(const A_E::PuzzleGame& game)
+void AE::GameInit::Start_Game(const AE::PuzzleGame& game)
 {
-	A_E::GTimer benchmark_game_time{};
-	int _DeltaTime{0};
-	A_E::GTimer::Start_Global_Timer();
+	
+	Init_window(std::wstring{L"Debug"}, 100, 50, 15, 15);
+
+	///init Timer and Time for using Delta time and FPS usage and thread Sleep
+	AE::GTimer benchmark_game_time {};
+	AE::GTimer::Start_Global_Timer();
+	Frame_Setting fram;
+	///init input keys that should use in the game 
+	const std::array<AE::GPuzzle::GInput::Keyboard_Value, 5> mykeys { {{'W',1},{'S',-1},{'A',-1},{'D',1} ,{'V',1}}};
+
+	World_init();
 
 	while (!Get_GameOver(game))
 	{
+		///TODO we need threads for each primary function
 		benchmark_game_time.Start_Time();
-		//get input
-		A_E::GRender::Draw(_DeltaTime);
-		Update_GameState(game, _DeltaTime);
+
+		/** TODO: puzzle game whole class name should change name and gave a generic name for inheritance*/
+		///get input
+		if (AE::GPuzzle::GInput::SendPlayerInput<5>(mykeys, &AE::PuzzleGame::Move_V, &AE::PuzzleGame::Move_H) < 0)
+			return;
+
+		///Rendering 
+		AE::GRender::Draw(m_DeltaTime);
+
+		///gamestate update (tick) for game
+		Update_GameState(game, m_DeltaTime);
 
 		benchmark_game_time.End_Time();
-		_DeltaTime = benchmark_game_time.Get_DeltaTime()*2;
-		//if vsync =on for 10fps
-		//_DeltaTime =100;
-		Pause_thread(_DeltaTime);
+		m_DeltaTime = benchmark_game_time.Get_DeltaTime();
+		///if vsync =on for 10fps
+		///_DeltaTime =100;
+		
+		if (m_DeltaTime < 16 and fram.Is_Vsync_On())
+			m_DeltaTime = 50;
+		Pause_thread(m_DeltaTime);
 	}
 }
-void A_E::GameInit::Pause_thread(const int Delta_time)
+void AE::GameInit::Pause_thread(const int Delta_time)
 {
-	std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(Delta_time)));
+	std::this_thread::sleep_for(std::chrono::milliseconds(static_cast< int >(Delta_time)));
 }
-void A_E::GameInit::Update_GameState(const A_E::PuzzleGame& game, const int Delta_time)
+void AE::GameInit::Update_GameState(const AE::PuzzleGame& game, const int Delta_time)
 {
+	///TODO change update_gamestate of game memfunc to Tick
 	game.Update_GameState(Delta_time);
 }
-bool A_E::GameInit::Get_GameOver(const A_E::PuzzleGame& game)
+void AE::GameInit::World_init()
+{
+
+	///init setting for char color rendering
+	Renderer_init();
+
+	///init levels and maps
+	Levels_init();
+
+
+	///fotter init 
+	AE::GRender::Add_to_buffer("\n", AE::ERenderRow::Fotter);
+	AE::GRender::Add_to_buffer("\n", AE::ERenderRow::Fotter);
+	AE::GRender::Add_to_buffer("Press Scape for Exit .... \n", AE::ERenderRow::Fotter);
+
+}
+void AE::GameInit::Renderer_init()
+{
+	///init character that using on this game and specify each char is what color on screen
+	const std::array<char, 7> symbols { '#','.','@','?','/','\\','|' };
+	const std::array<Color::Code, 7> colors { Color::FG_BLUE,Color::FG_RED,Color::FG_WHITE ,
+		Color::FG_BRIGHT_GREEN,Color::FG_BRIGHT_YELLOW,Color::FG_BLUE,Color::FG_BRIGHT_MAGENTA };
+	AE::GRender::init_shapes<7>(symbols, colors);
+}
+void AE::GameInit::Levels_init()
+{
+	AE::lvl::GLevel m_lvl1, m_lvl2;
+	m_lvl1.init_map(GPuzzle::prize::You_win, "You Win");
+	m_lvl2.init_map("Hello ", "test");
+
+	const std::array<AE::lvl::GLevel, 2> levels { m_lvl1,m_lvl2 };
+	AE::world::GWorld<2>::Init_Game_World()->Init_levels(levels);
+}
+bool AE::GameInit::Get_GameOver(const AE::PuzzleGame& game)
 {
 	return  game.Get_GameOver();
+}
+void AE::GameInit::Init_window(const std::wstring& win_name,int window_width, int window_heigth, int font_w, int font_h)
+{
+	//HANDLE m_outhandle { GetStdHandle(STD_OUTPUT_HANDLE) };
+	////HANDLE m_inhandle { GetStdHandle(STD_INPUT_HANDLE) };
+
+	//std::wstring win_name { L"ASCII_ENGINE" };
+
+	//SMALL_RECT rect_win = { 0,0,( short )window_width,( short )window_heigth };
+	////SetConsoleWindowInfo(m_outhandle, TRUE, &rect_win);
+	//COORD coord = { ( short )window_width, ( short )window_heigth };
+	//SetConsoleScreenBufferSize(m_outhandle, coord);
+	//SetConsoleActiveScreenBuffer(m_outhandle);
+
+	//// Set the font size now that the screen buffer has been assigned to the console
+	//CONSOLE_FONT_INFOEX cfi;
+	//cfi.cbSize = sizeof(cfi);
+	//cfi.nFont = 0;
+	//cfi.dwFontSize.X = font_w;
+	//cfi.dwFontSize.Y = font_w;
+	//cfi.FontFamily = FF_DONTCARE;
+	//cfi.FontWeight = FW_NORMAL;
+
+	//wcscpy_s(cfi.FaceName, L"Consolas");
+	//SetCurrentConsoleFontEx(m_outhandle, false, &cfi);
+	//CONSOLE_SCREEN_BUFFER_INFO csbi;
+	//GetConsoleScreenBufferInfo(m_outhandle, &csbi);
+
+	////rect_win = { 0, 0 ,( short )window_width - 1, ( short )window_heigth - 1 };
+	//SetConsoleWindowInfo(m_outhandle, TRUE, &rect_win);
+
+	//SetConsoleMode(m_outhandle, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+	////CHAR_INFO* m_bufScreen = new CHAR_INFO[window_width * window_heigth];
+	////memset(m_bufScreen, 0, sizeof(CHAR_INFO) * window_width * window_heigth);
+
+	////Write_win_title(window_width, window_heigth);
+	//wchar_t s[25];
+	//swprintf_s(s, 25, L"AE - %s ", win_name.c_str());
+	//SetConsoleTitle(s);
+	////WriteConsoleOutput(m_outhandle, m_bufScreen, { ( short )window_width, ( short )window_heigth }, { 0,0 }, &rect_win);
+	GWindow::CreateWin(win_name, window_width, window_heigth,font_w, font_h);
 }

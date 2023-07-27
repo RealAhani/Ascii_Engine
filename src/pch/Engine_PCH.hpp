@@ -1,5 +1,5 @@
-#ifndef PUZZLE_PCH_HPP
-#define PUZZLE_PCH_HPP
+#ifndef A_E_PCH_HPP
+#define A_E_PCH_HPP
 #include <iostream>
 #include <math.h>
 #include <string>
@@ -7,6 +7,9 @@
 #include <array>
 #include <thread>
 #include <chrono>
+#include <Windows.h>
+#include <conio.h>
+#include <bitset>
 //
 // user defined classes
 //
@@ -15,4 +18,4 @@
 #include "GLoger.hpp"
 #include"GInput.hpp"
 #include "Color.hpp"
-#endif //PUZZLE_PCH_HPP
+#endif //A_E_PCH_HPP
