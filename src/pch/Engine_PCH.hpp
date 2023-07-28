@@ -19,4 +19,5 @@
 #include"GInput.hpp"
 #include "Color.hpp"
 #include "GRandom.hpp"
+#include "Vector2D.hpp"
 #endif //A_E_PCH_HPP
