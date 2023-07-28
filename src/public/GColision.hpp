@@ -11,7 +11,7 @@ namespace AE
 		~GColision() = default;
 
 
-		bool Is_collide(const AE::Point2D& destination_point);
+		bool Is_collide(const AE::GVector::Point2D& destination_point);
 		inline bool Get_block_effect()noexcept
 		{
 			return can_block;
@@ -27,7 +27,7 @@ namespace AE
 			//logic to fill bitset based on map chars
 			//eg. if its # set this position to 1 etc...
 		}
-		bool Is_it_runable(const AE::Point2D& destination);
+		bool Is_it_runable(const AE::GVector::Point2D& destination);
 	private:
 		bool can_block {};
 		/// 1 is colide

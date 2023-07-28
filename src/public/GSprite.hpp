@@ -8,7 +8,7 @@ namespace AE
 
 	public:
 		GSprite() = default;
-		GSprite(s_uint w, s_uint h)
+		GSprite(s_uint w, s_uint h) : m_width { w }, m_height { h }
 		{
 			Generate_Unique_Id();
 			Init_Pixels(w, h);

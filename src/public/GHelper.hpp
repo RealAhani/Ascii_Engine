@@ -1,11 +1,15 @@
 #pragma once
+namespace AE::GVector
+{
+	class Vector2D;
 
-class Vector2D;
+}
 namespace AE
 {
 	namespace GPuzzle
 	{
-		enum class EFPS_Setting:uint8_t {
+		enum class EFPS_Setting :uint8_t
+		{
 			fps_60, fps_30, fps_20, fps_10
 		};
 		namespace GHelper
@@ -20,38 +24,39 @@ namespace AE
 		namespace prize
 		{
 			static constexpr std::string_view You_win = "\\\\    //        ____                                                  [  ]            "
-														" \\\\  //      //      \\\\      ||     ||         \\\\              //  ||  ||\\\\   ||"
-														"     ||        ||      ||        ||     ||          \\\\            //   ||  || \\\\  ||"
-														"     ||        ||      ||      \\\\     //           \\\\  //\\\\  //    ||  ||  \\\\ ||"
-														"     ||       \\\\____//        \\\\___//             \\\\//  \\\\//    [  ] ||   \\\\||";
+				" \\\\  //      //      \\\\      ||     ||         \\\\              //  ||  ||\\\\   ||"
+				"     ||        ||      ||        ||     ||          \\\\            //   ||  || \\\\  ||"
+				"     ||        ||      ||      \\\\     //           \\\\  //\\\\  //    ||  ||  \\\\ ||"
+				"     ||       \\\\____//        \\\\___//             \\\\//  \\\\//    [  ] ||   \\\\||";
 		}
 	}
 	namespace GMath
 	{
+
 		float get_Rot_Deg(float Rad);
 		float get_Rot_Rad(float Deg);
-		float get_sin(const Vector2D& v1, const Vector2D& v2);
-		float get_Cos(const Vector2D& v1, const Vector2D& v2);
-		float get_Tan(const Vector2D& v1, const Vector2D& v2);
-		float get_CoTan(const Vector2D& v1, const Vector2D& v2);
+		float get_sin(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_Cos(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_Tan(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_CoTan(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
 
-		float get_ArcCos(const Vector2D& v1, const Vector2D& v2);
-		float get_ArcSin(const Vector2D& v1, const Vector2D& v2);
-		float get_ArcTan(const Vector2D& v1, const Vector2D& v2);
-		float get_ArcCoTan(const Vector2D& v1, const Vector2D& v2);
-		float get_ArcCsc(const Vector2D& v1, const Vector2D& v2);
-		float get_ArcSec(const Vector2D& v1, const Vector2D& v2);
-		float get_ArcCot(const Vector2D& v1, const Vector2D& v2);
+		float get_ArcCos(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_ArcSin(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_ArcTan(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_ArcCoTan(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_ArcCsc(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_ArcSec(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_ArcCot(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
 
-		float get_CSC(const Vector2D& v1, const Vector2D& v2);
-		float get_SEC(const Vector2D& v1, const Vector2D& v2);
+		float get_CSC(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
+		float get_SEC(const AE::GVector::Vector2D& v1, const AE::GVector::Vector2D& v2);
 
-		Vector2D& Scale_Vec(int scaler, Vector2D& vec);
-		Vector2D Neget_Vec(const Vector2D& vec);
-		Vector2D unit_Vec(const Vector2D& vec);
+		AE::GVector::Vector2D& Scale_Vec(int scaler, AE::GVector::Vector2D& vec);
+		AE::GVector::Vector2D Neget_Vec(const AE::GVector::Vector2D& vec);
+		AE::GVector::Vector2D unit_Vec(const AE::GVector::Vector2D& vec);
 
-		int Dot_product(const Vector2D& vec1, const Vector2D& vec2);
+		int Dot_product(const AE::GVector::Vector2D& vec1, const AE::GVector::Vector2D& vec2);
 		//Vector2D& Cross_Product(const Vector2D& vec1, const Vector2D& vec2);
-		int calc_length(Vector2D& vec);
+		int calc_length(AE::GVector::Vector2D& vec);
 	}
 }

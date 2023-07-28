@@ -2,13 +2,13 @@
 #include "GColision.hpp"
 
 template<size_t size>
-bool AE::GColision<size>::Is_collide(const AE::Point2D& destination_point)
+bool AE::GColision<size>::Is_collide(const AE::GVector::Point2D& destination_point)
 {
 	return Is_it_runable(size, destination_point);
 }
 
 template<size_t size>
-bool AE::GColision<size>::Is_it_runable(const AE::Point2D& destination)
+bool AE::GColision<size>::Is_it_runable(const AE::GVector::Point2D& destination)
 {
 	///look through the bitset and search for this position and return the  value
 	int index = AE::GPuzzle::GHelper::Whatis_index(size, destination.x, destination.y);

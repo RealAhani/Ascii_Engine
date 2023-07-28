@@ -9,7 +9,7 @@ namespace AE
 		using s_uint = unsigned int;
 
 	public:
-		GBuffer(s_uint width, s_uint height)
+		GBuffer(s_uint width, s_uint height) : m_width { width }, m_height { height }
 		{
 			m_Sprites.reserve(150);
 			m_Sprites.resize(150);
@@ -21,9 +21,9 @@ namespace AE
 		void Init_Buffer(s_uint width, s_uint height)
 		{
 
-			m_buffer_pixles_symboles = new [[__nothrow]] short[width * height]
+			m_buffer_pixles_symboles = new  short[width * height]
 			{};
-			m_buffer_pixles_colors = new [[__nothrow]] short[width * height]
+			m_buffer_pixles_colors = new  short[width * height]
 			{};
 		}
 		void Clear_Buffer()
@@ -96,8 +96,8 @@ namespace AE
 		{
 			return m_buffer_pixles_symboles;
 		}
-
-		short* Get_Buffer_Symboles_Array()
+		
+		short* Get_Buffer_Color_Array()
 		{
 			return m_buffer_pixles_colors;
 		}
