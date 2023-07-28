@@ -18,4 +18,5 @@
 #include "GLoger.hpp"
 #include"GInput.hpp"
 #include "Color.hpp"
+#include "GRandom.hpp"
 #endif //A_E_PCH_HPP
