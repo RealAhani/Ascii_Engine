@@ -8,7 +8,7 @@ namespace AE
 
 	public:
 		GSprite() = default;
-		GSprite(s_uint w, s_uint h) : m_width { w }, m_height { h }
+		GSprite(s_uint w, s_uint h, AE::GVector::Point2D&& pos) : m_width { w }, m_height { h }, m_sprite_position { pos }
 		{
 			Generate_Unique_Id();
 			Init_Pixels(w, h);
@@ -38,6 +38,17 @@ namespace AE
 					m_pixles_color[AE::GPuzzle::GHelper::Whatis_index(m_width, x, y) + i] = color;
 				}
 			}
+		}
+		template <std::size_t size>
+		void Set_Sprite_Pixels_With_String(const std::string& str , std::array<short, size> &color)
+		{
+			// for (const auto &ch : str)
+			for (size_t i { 0 }; i < m_height; i++)
+				for (size_t j { 0 }; j < m_width; j++)
+				{
+					Set_Sprite_Pixel(j, i, str.at(j + m_width * i), color.at(j + m_width * i));
+					// Set_Sprite_Pixel(i, j, ch, color.at(j + size * i));
+				}
 		}
 		bool Not_OutofBounds(ushort x, ushort y)
 		{
@@ -97,7 +108,14 @@ namespace AE
 		{
 			return m_sprite_position;
 		}
-
+		inline s_uint Get_Sprite_Width()
+		{
+			return m_width;
+		}
+		inline s_uint Get_Sprite_Hight()
+		{
+			return m_height;
+		}
 	private:
 		std::vector<short> m_pixles_symbole {};
 		std::vector<short> m_pixles_color {};

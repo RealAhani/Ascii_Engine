@@ -71,12 +71,26 @@ namespace AE
 		{
 			for (auto& res : m_Sprites)
 			{
-				int counter { 0 };
-				for (auto& symb : res.Get_Symboles_Array())
+				if (!res.Get_Symboles_Array().empty())
 				{
-					m_buffer_pixles_symboles[counter] = symb;
-					++counter;
+					auto pos = res.Get_Sprite_Position();
+					// for (auto &symb : res.Get_Symboles_Array())
+					// {
+					for (s_uint i = 0; i < res.Get_Sprite_Hight(); ++i)
+					{
+						if (i + pos.y >= m_height)
+							break;
+						for (s_uint j = 0; j < res.Get_Sprite_Width(); ++j)
+						{
+							if (j + pos.x >= m_width)
+								break;
+							int index = (j + pos.x) + (m_width * (i + pos.y));
+							// m_buffer_pixles_symboles[index] = symb;
+							m_buffer_pixles_symboles[index] = res.Get_Symboles_Array().at(j + res.Get_Sprite_Width() * i);
+						}
+					}
 				}
+				// }
 			}
 		}
 		void Fill_Pixels_Color()
@@ -131,4 +145,5 @@ namespace AE
 		s_uint m_width {};
 		s_uint m_height {};
 	};
+
 }
