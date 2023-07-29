@@ -8,103 +8,45 @@ namespace AE
 
 	public:
 		GSprite() = default;
-		GSprite(s_uint w, s_uint h, AE::GVector::Point2D&& pos) : m_width { w }, m_height { h }, m_sprite_position { pos }
+		GSprite(s_uint w, s_uint h, AE::GVector::Point2D&& pos);
+		GSprite(const std::string_view& str, s_uint w, s_uint h, AE::GVector::Point2D&& pos);
+		template <size_t size>
+		GSprite(const std::string_view& str, std::array<short, size> color, s_uint w, s_uint h, AE::GVector::Point2D&& pos) : m_width { w }, m_height { h }, m_sprite_position { pos }
 		{
 			Generate_Unique_Id();
 			Init_Pixels(w, h);
+			Set_Sprite_Pixels_With_String<size>(str, color);
 		}
-		~GSprite()
-		{
-			Clear_Pixels();
-		}
+		~GSprite();
 
-		void Set_Sprite_Pixel(ushort x, ushort y, short character, short color)
-		{
-			// set 1 pixle with  this character and this color at this x and y
-			if (Not_OutofBounds(x, y))
-			{
-				m_pixles_symbole[AE::GPuzzle::GHelper::Whatis_index(m_width,x,y)] = character;
-				m_pixles_color[AE::GPuzzle::GHelper::Whatis_index(m_width, x, y)] = color;
-			}
-		}
-		void Set_Sprite_Pixels(ushort x, ushort y, int count, short character, short color)
-		{
-			// set pixles with spesific count to this character and this color at this x and y
-			if (Not_OutofBounds(x, y))
-			{
-				for (size_t i = 0; i < count; ++i)
-				{
-					m_pixles_symbole[AE::GPuzzle::GHelper::Whatis_index(m_width, x, y) + i] = character;
-					m_pixles_color[AE::GPuzzle::GHelper::Whatis_index(m_width, x, y) + i] = color;
-				}
-			}
-		}
+		void Set_Sprite_Pixel(ushort x, ushort y, short character, short color);
+		void Set_Sprite_Pixels(ushort x, ushort y, int count, short character, short color);
 		template <std::size_t size>
-		void Set_Sprite_Pixels_With_String(const std::string& str , std::array<short, size> &color)
+		void Set_Sprite_Pixels_With_String(const std::string_view& str, std::array<short, size>& color)
 		{
 			// for (const auto &ch : str)
-			for (size_t i { 0 }; i < m_height; i++)
-				for (size_t j { 0 }; j < m_width; j++)
+			for (size_t y { 0 }; y < m_height; ++y)
+				for (size_t x { 0 }; x < m_width; ++x)
 				{
-					Set_Sprite_Pixel(j, i, str.at(j + m_width * i), color.at(j + m_width * i));
+					Set_Sprite_Pixel(x, y, str.at(AE::GPuzzle::GHelper::Whatis_index(m_width, x, y)),
+									 color.at(AE::GPuzzle::GHelper::Whatis_index(m_width, x, y)));
 					// Set_Sprite_Pixel(i, j, ch, color.at(j + size * i));
 				}
 		}
-		bool Not_OutofBounds(ushort x, ushort y)
+		void Set_Sprite_Pixels_With_String(const std::string_view& str);
+		short Get_Sprite_Symbole(ushort x, ushort y);
+		short Get_Sprite_Color(ushort x, ushort y);
+
+		inline std::vector<short>& Get_Symboles_Array()
 		{
-			if (x >= 0 and x <= m_width and y >= 0 and y <= m_height)
-				return true;
-			return false;
+			return m_pixles_symbole;
 		}
-		void Init_Pixels(s_uint width, s_uint height)
+		inline std::vector<short>& Get_Colors_Array()
 		{
-			m_pixles_symbole.reserve(width * height);
-			m_pixles_symbole.resize(width * height);
-			m_pixles_color.reserve(width * height);
-			m_pixles_color.resize(width * height);
-		}
-		void Clear_Pixels()
-		{
-			m_pixles_symbole.clear();
-			m_pixles_color.clear();
-			m_width = m_height = 0;
+			return m_pixles_color;
 		}
 
-		[[__maybe_unused]] static std::size_t Generate_Unique_Id()
-		{
-			return m_Sprite_ID++;
-		}
-		std::vector<short> Get_Symboles_Array()
-		{
-			if (m_pixles_symbole.size() > 0)
-				return m_pixles_symbole;
-			return {};
-		}
-		std::vector<short> Get_Colors_Array()
-		{
-			if (m_pixles_color.size() > 0)
-				return m_pixles_color;
-			return {};
-		}
-		short Get_Sprite_Symbole(ushort x, ushort y)
-		{
-			if (Not_OutofBounds(x, y))
-			{
-				return m_pixles_symbole[x * m_width + y];
-			}
-			return 0;
-			// return the m_pixels cordinate at this x and y
-		}
-		short Get_Sprite_Color(ushort x, ushort y)
-		{
-			if (Not_OutofBounds(x, y))
-			{
-				return m_pixles_color[x * m_width + y];
-			}
-			return 0;
-			// return the m_pixels cordinate at this x and y
-		}
-		const AE::GVector::Point2D& Get_Sprite_Position()
+		const inline AE::GVector::Point2D& Get_Sprite_Position()
 		{
 			return m_sprite_position;
 		}
@@ -117,11 +59,20 @@ namespace AE
 			return m_height;
 		}
 	private:
+		bool Not_OutofBounds(ushort x, ushort y);
+		void Init_Pixels(s_uint width, s_uint height);
+		void Clear_Pixels();
+
+		[[__maybe_unused]] static std::size_t Generate_Unique_Id()
+		{
+			return m_Sprite_ID++;
+		}
+
+	private:
 		std::vector<short> m_pixles_symbole {};
 		std::vector<short> m_pixles_color {};
 		s_uint m_width {};
 		s_uint m_height {};
-
 		AE::GVector::Point2D m_sprite_position {};
 		static inline std::size_t m_Sprite_ID {};
 	};
