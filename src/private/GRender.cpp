@@ -14,7 +14,7 @@ void AE::GRender::Draw(const int Delta_time)
 }
 bool AE::GRender::Add_to_buffer(std::string&& str, const AE::ERenderRow&& render_row)
 {
-	if (str.size()<=0)
+	if (str.size()==0)
 		return false;
 	switch (render_row)
 	{

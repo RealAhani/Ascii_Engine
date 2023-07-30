@@ -7,7 +7,7 @@ namespace AE
 	namespace GPuzzle::GHelper
 	{
 		//This function are helper for work with 1D array index if you need 2D array 
-		int Whatis_Y(int index, int width)
+		/*int Whatis_Y(int index, int width)
 		{
 			return (index / width == 1.0) ? 1 : ((index / width > 1.0) ? index / width : 0);
 		}
@@ -15,10 +15,10 @@ namespace AE
 		{
 			return index - (width * Whatis_Y(index, width));
 		}
-		int Whatis_index(int width, int x, int y)
+		auto Whatis_index(auto width, auto x, auto y)
 		{
 			return x + (width * y);
-		}
+		}*/
 	}
 	namespace GMath
 	{

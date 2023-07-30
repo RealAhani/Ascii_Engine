@@ -16,10 +16,10 @@ namespace AE
 	}
 	void GBuffer::Init_Buffer(s_uint width, s_uint height)
 	{
-
-		m_buffer_pixles_symboles = new  short[width * height]
+		const auto& t_size = width * height;
+		m_buffer_pixles_symboles = new  short[t_size]
 		{};
-		m_buffer_pixles_colors = new  short[width * height]
+		m_buffer_pixles_colors = new  short[t_size]
 		{};
 	}
 	void GBuffer::Clear_Buffer()
@@ -70,7 +70,7 @@ namespace AE
 		{
 			if (!res.Get_Symboles_Array().empty())
 			{
-				auto pos = res.Get_Sprite_Position();
+				const auto& pos = res.Get_Sprite_Position();
 				for (s_uint y = 0; y < res.Get_Sprite_Hight(); ++y)
 				{
 					if (y + pos.y >= m_height)
@@ -92,7 +92,7 @@ namespace AE
 		{
 			if (!res.Get_Colors_Array().empty())
 			{
-				auto pos = res.Get_Sprite_Position();
+				const auto& pos = res.Get_Sprite_Position();
 				for (s_uint y = 0; y < res.Get_Sprite_Hight(); ++y)
 				{
 					if (y + pos.y >= m_height)
@@ -126,15 +126,12 @@ namespace AE
 	// Correct empty pixles and get all thing to gether and send to GRendere
 	void GBuffer::Currect_Empty_Index_Buffer()
 	{
-		for (size_t i = 0; i < m_width * m_height; ++i)
+		const auto& temp_size = m_width * m_height;
+		for (size_t i = 0; i < temp_size; ++i)
 		{
 			if (m_buffer_pixles_symboles[i] == 0)
 			{
 				m_buffer_pixles_symboles[i] = L' ';
-			}
-			if (m_buffer_pixles_colors[i] == 0)
-			{
-				m_buffer_pixles_colors[i] = 0x0000;
 			}
 		}
 	}

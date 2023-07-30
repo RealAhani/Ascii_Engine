@@ -5,10 +5,13 @@
 #include <string>
 #include <string_view>
 #include <array>
+#include <vector>
 #include <thread>
 #include <chrono>
 #include <Windows.h>
 #include <conio.h>
+#include <cstddef>
+#include <cstdint>
 #include <bitset>
 //
 // user defined classes

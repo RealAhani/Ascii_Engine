@@ -63,7 +63,7 @@ namespace AE
 		void Init_Pixels(s_uint width, s_uint height);
 		void Clear_Pixels();
 
-		[[__maybe_unused]] static std::size_t Generate_Unique_Id()
+		static std::size_t Generate_Unique_Id()
 		{
 			return m_Sprite_ID++;
 		}

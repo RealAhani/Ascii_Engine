@@ -13,7 +13,7 @@ namespace AE::GVector
 	public:
 		Vector2D(const int x, const int y);
 		Vector2D(const Vector2D& vec);
-		Vector2D(const Point2D& point);
+		explicit Vector2D(const Point2D& point);
 		~Vector2D() = default;
 
 		Vector2D& operator = (const Vector2D& rvec);

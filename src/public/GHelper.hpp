@@ -17,9 +17,24 @@ namespace AE
 			class PuzzleTile;
 			std::array<PuzzleTile, 16>& Randomizer(std::array<PuzzleTile, 16>& t_arr);
 			PuzzleTile& Filler_tiles(std::array<PuzzleTile, 16>& t_arr);
-			int Whatis_Y(int index, int width);
-			int Whatis_X(int index, int width);
-			int Whatis_index(int width, int x, int y);
+
+			template<typename T>
+			T Whatis_Y(T index, T width)
+			{
+				return (index / width == 1.0) ? 1 : ((index / width > 1.0) ? index / width : 0);
+			}
+
+			template<typename T>
+			T Whatis_X(T index, T width)
+			{
+				return index - (width * Whatis_Y(index, width));
+			}
+			
+			template<typename T>
+			T Whatis_index(T width, T x, T y)
+			{
+				return x + (width * y);
+			}
 		}
 		namespace prize
 		{
