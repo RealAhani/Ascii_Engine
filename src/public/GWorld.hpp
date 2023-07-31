@@ -36,7 +36,7 @@ namespace AE
 			}
 			static void Show_lvl()
 			{
-				AE::GRender::Add_to_buffer(m_levels.at(s_current_lvl).Get_map()->Get_map_Shape().c_str(), AE::ERenderRow::Body);
+				//AE::GRender::Add_to_buffer(m_levels.at(s_current_lvl).Get_map()->Get_map_Shape().c_str(), AE::ERenderRow::Body);
 			}
 			inline static std::array< AE::lvl::GLevel, size>& Get_levels()
 			{
@@ -54,7 +54,7 @@ namespace AE
 
 			static void Clean_level()
 			{
-				AE::GRender::Clean_buffer();
+				AE::GRender::Clear_Buffer();
 			}
 			inline static std::array< AE::lvl::GLevel, size>& Get_all_levels()
 			{

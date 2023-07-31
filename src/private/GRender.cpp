@@ -5,125 +5,114 @@
 //definition of a test static struct mem for know wich key with wich value is pressed (debugging perpuse)
 AE::GPuzzle::GInput::Keyboard_Value AE::GRender::s_pressedkey {};
 
-void AE::GRender::Draw(const int Delta_time)
+/// <summary>
+/// TODO TEST Remove this include 
+#include "GSprite.hpp"
+namespace AE
 {
-	//clean the frame 
-	Clean();
-	//Render the game
-	Render_game_details(Delta_time);
-}
-bool AE::GRender::Add_to_buffer(std::string&& str, const AE::ERenderRow&& render_row)
-{
-	if (str.size()<=0)
-		return false;
-	switch (render_row)
+	void GRender::Start_Rendere(int delta_time)
 	{
-		case ERenderRow::Header:
 
-			m_header_buffer += str;
-			break;
-		case ERenderRow::Body:
-			//m_body_buffer += String_analyzer(str);
-			m_body_buffer += str;
-			break;
-		case ERenderRow::Fotter:
-			m_footer_buffer += str;
-			break;
+		Clear_Screen();
+		std::string test = "Game Timer: " + std::to_string(( int )GTimer::Get_Global_ElapsedTime()) + "    " + s_pressedkey.key + std::to_string(s_pressedkey.value)
+			+ "  " + "FPS: " + std::to_string(Frame_Setting::Get_FPS(( int )delta_time)) + " Latency(ms): " + std::to_string(( int )delta_time);
+		test.resize(test.size() + 7);
+		//std::array<short, 10> arr_colors { {{1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}} };
+
+		GSprite sp1(test, test.size(), 1, AE::GVector::Point2D { 1, 0 });
+
+		GSprite sp2(AE::GPuzzle::prize::You_win, AE::GPuzzle::prize::You_win.size()/16, 16, AE::GVector::Point2D {0,2});
+		//GSprite sp2(str, str.size() / 12, 12, AE::GVector::Point2D { 0,3 });
+		//mem leak
+		m_buffer->Add_Sprite(sp1);
+		m_buffer->Add_Sprite(sp2);
+		m_buffer->Fill_Pixels_Symboles();
+		m_buffer->Fill_Pixels_Color();
+		Draw_On_Screen();
 	}
-	return true;
-}
-std::string& AE::GRender::String_analyzer(std::string& str)
-{
-	for (std::size_t i{0};i<str.size();++i)
+
+	GBuffer* GRender::Get_Buffer()
 	{
-		for (const auto& res : m_shapes)
+		return nullptr;
+	}
+
+	void GRender::Change_Buffer(GBuffer* buf)
+	{
+		///TODO CREATE COPY CTOR AND COPY OPERATOR OVERLOAD FOR AVOID SHALLOW COPY
+		*m_buffer = *buf;
+	}
+
+	GRender* GRender::CreatInstance()
+	{
+		static GRender* instance { nullptr };
+		if (!instance)
 		{
-			if (res.symbole == str.at(i))
-			{
-				std::string test = AE::Color::Modifier::Create_Color_String(str.at(i), *res.m_color_code_FG.get()).data();
-				str=str.replace(i,1,test);
-	//for some reason after we replace the specific char with a string coler code the size increase to 6===> char +5 so this 5 is for extera added length
-				i += 5;
-			}
+			int te = GScreen::Get_heigth();
+			int e3 = GScreen::Get_with();
+			instance = new GRender(GScreen::Get_heigth(), GScreen::Get_with());
+
+		}
+		return instance;
+	}
+	void GRender::DestroyInstance()
+	{
+		GRender* tes = GRender::CreatInstance();
+		delete tes;
+		tes = nullptr;
+	}
+
+
+	///Debuger that show on the header of the terminal that wich key is currently pressed
+	static AE::GPuzzle::GInput::Keyboard_Value s_pressedkey;
+
+	///main function for draw every thing on the screen (terminal)
+	void GRender::Clear_Buffer()
+	{
+		if (m_buffer)
+		{
+			delete m_buffer;
+			m_buffer = nullptr;
 		}
 	}
-	return str;
-}
-bool AE::GRender::Clean_buffer()
-{
-	///just body is important for cleaning buffer
-	if (m_body_buffer.size() > 0)
+
+	GRender::GRender(s_uint w, s_uint h)
 	{
-		m_header_buffer.clear();
-		m_body_buffer.clear();
-		m_footer_buffer.clear();
-		return true;
+		Init_Buffer(w, h);
 	}
-	return false;
-}
-
-void AE::GRender::Log_based_on_shapes()
-{
-
-	/*for (const auto& chr : m_body_buffer)
+	GRender::~GRender()
 	{
-		for (const auto& res : m_shapes)
-		{
-			if (res.symbole == chr)
-				FGCOLOR(*res.m_color_code_FG.get());
-		}
-	}*/
-		//LOG(m_body_buffer);
-}
-void AE::GRender::Render_game_details(const int Delta_time)
-{
-	//Header 
-	Draw_Header(Delta_time);
-	//Body
-	Draw_Body(Delta_time);
-	//footer
-	Draw_footer(Delta_time);
-}
-void AE::GRender::Clean()
-{
-	//CLS();
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD { 0,0 });
+		Clear_Buffer();
+	}
+	GBuffer* GRender::Init_Buffer(s_uint w, s_uint h)
+	{
+		if (!m_buffer)
+			m_buffer = new GBuffer {};
+		return m_buffer;
+	}
+
+	void GRender::Draw_On_Screen()
+	{
+		GWindow::WriteOnConsole(m_buffer->Get_Buffer_Symboles_Array(), m_buffer->Get_Buffer_Color_Array());
+	}
+	void GRender::Clear_Screen()
+	{
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD { 0,0 });
+		if (m_buffer->Get_Sprites().size() > 0)
+			m_buffer->Clear_Sprite();
+	}
 }
 
-void AE::GRender::Draw_Header(const int Delta_time)
-{
-	//BGCOLOR(Color::Modifier { Color::BG_DEFAULT });
-	//FGCOLOR(Color::Modifier { Color::FG_BLUE });
-	//LOG("Game Timer: ");
-	//LOG(GTimer::Get_Global_ElapsedTime());
-	//LOG("  ");
-	//LOG("  ");
-	//FGCOLOR(Color::Modifier { Color::FG_BRIGHT_YELLOW });
-	//LOG(s_pressedkey.key);
-	//LOG(s_pressedkey.value);
-	//LOG("  ");
-	//FGCOLOR(Color::Modifier { Color::FG_RED });
-	//LOG("FPS: ");
-	/*LOG(Frame_Setting::Get_FPS(Delta_time));
-	LOG(" Latency(ms): ");
-	LOG_N(Delta_time);*/
-	//FGCOLOR(Color::Modifier { Color::FG_GREEN });
-	m_header_buffer = "Game Timer: " + std::to_string(GTimer::Get_Global_ElapsedTime()) + "    " + s_pressedkey.key + std::to_string(s_pressedkey.value)
-		+ "  " + "FPS: " + std::to_string(Frame_Setting::Get_FPS(Delta_time)) + " Latency(ms): " + std::to_string(Delta_time);
-}
-
-void AE::GRender::Draw_Body(const int Delta_time)
-{
-	/*FGCOLOR(Color::Modifier { Color::FG_BRIGHT_CYAN });
-	LOG(m_body_buffer);*/
-	//Log_based_on_shapes();
-	//LOG(m_body_buffer);
-	m_header_buffer += m_body_buffer;
-	GWindow::WriteOnConsole(m_header_buffer,COORD{1,0});
-}
-
-void AE::GRender::Draw_footer(const int Delta_time)
-{
-	/*FGCOLOR(Color::Modifier { Color::FG_BRIGHT_RED });
-	LOG(m_footer_buffer);*/
-}
+//void AE::GRender::Clean()
+//{
+//	//CLS();
+//	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD { 0,0 });
+//}
+//
+//void AE::GRender::Draw_Header(const int Delta_time)
+//{
+//
+//	m_header_buffer = "Game Timer: " + std::to_string(GTimer::Get_Global_ElapsedTime()) + "    " + s_pressedkey.key + std::to_string(s_pressedkey.value)
+//		+ "  " + "FPS: " + std::to_string(Frame_Setting::Get_FPS(Delta_time)) + " Latency(ms): " + std::to_string(Delta_time);
+//	m_header_buffer += m_body_buffer;
+//	GWindow::WriteOnConsole(m_header_buffer, COORD { 1,0 });
+//}

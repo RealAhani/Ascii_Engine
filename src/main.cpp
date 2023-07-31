@@ -31,7 +31,6 @@ int main(int argc, char** argv)
 	WAIT();
 	return 0;
 }
-//random
 //AI
 //network
 //audio

@@ -29,7 +29,7 @@ int AE::GameInit::Initilize_Game(const AE::PuzzleGame& game)
 void AE::GameInit::Start_Game(const AE::PuzzleGame& game)
 {
 	
-	Init_window(std::wstring{L"Debug"}, 100, 50, 15, 15);
+	Init_window(std::wstring{L"Debug"}, 92, 35, 20, 20);
 
 	///init Timer and Time for using Delta time and FPS usage and thread Sleep
 	AE::GTimer benchmark_game_time {};
@@ -51,7 +51,7 @@ void AE::GameInit::Start_Game(const AE::PuzzleGame& game)
 			return;
 
 		///Rendering 
-		AE::GRender::Draw(m_DeltaTime);
+		AE::GRender::CreatInstance()->Start_Rendere(m_DeltaTime);
 
 		///gamestate update (tick) for game
 		Update_GameState(game, m_DeltaTime);
@@ -65,6 +65,7 @@ void AE::GameInit::Start_Game(const AE::PuzzleGame& game)
 			m_DeltaTime = 50;
 		Pause_thread(m_DeltaTime);
 	}
+	AE::GRender::DestroyInstance();
 }
 void AE::GameInit::Pause_thread(const int Delta_time)
 {
@@ -84,11 +85,8 @@ void AE::GameInit::World_init()
 	///init levels and maps
 	Levels_init();
 
-
 	///fotter init 
-	AE::GRender::Add_to_buffer("\n", AE::ERenderRow::Fotter);
-	AE::GRender::Add_to_buffer("\n", AE::ERenderRow::Fotter);
-	AE::GRender::Add_to_buffer("Press Scape for Exit .... \n", AE::ERenderRow::Fotter);
+	
 
 }
 void AE::GameInit::Renderer_init()
@@ -97,7 +95,7 @@ void AE::GameInit::Renderer_init()
 	const std::array<char, 7> symbols { '#','.','@','?','/','\\','|' };
 	const std::array<Color::Code, 7> colors { Color::FG_BLUE,Color::FG_RED,Color::FG_WHITE ,
 		Color::FG_BRIGHT_GREEN,Color::FG_BRIGHT_YELLOW,Color::FG_BLUE,Color::FG_BRIGHT_MAGENTA };
-	AE::GRender::init_shapes<7>(symbols, colors);
+	/*AE::GRender::init_shapes<7>(symbols, colors);*/
 }
 void AE::GameInit::Levels_init()
 {
