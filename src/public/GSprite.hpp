@@ -1,4 +1,6 @@
 #pragma once
+#include"Vector2D.hpp"
+
 namespace AE
 {
 	class GSprite
@@ -9,9 +11,12 @@ namespace AE
 	public:
 		GSprite() = default;
 		GSprite(s_uint w, s_uint h, AE::GVector::Point2D&& pos);
+
 		GSprite(const std::string_view& str, s_uint w, s_uint h, AE::GVector::Point2D&& pos);
+
 		template <size_t size>
-		GSprite(const std::string_view& str, std::array<short, size> color, s_uint w, s_uint h, AE::GVector::Point2D&& pos) : m_width { w }, m_height { h }, m_sprite_position { pos }
+		GSprite(const std::string_view& str, std::array<short, size> color,
+				s_uint w, s_uint h, AE::GVector::Point2D&& pos) : m_width { w }, m_height { h }, m_sprite_position { pos }
 		{
 			Generate_Unique_Id();
 			Init_Pixels(w, h);
@@ -46,7 +51,7 @@ namespace AE
 			return m_pixles_color;
 		}
 
-		const inline AE::GVector::Point2D& Get_Sprite_Position()
+		const AE::GVector::Point2D& Get_Sprite_Position()
 		{
 			return m_sprite_position;
 		}

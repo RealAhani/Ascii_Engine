@@ -48,14 +48,42 @@ namespace AE
 		static void SetWinCharInfo(int size);
 		static void SetWinFont(int fw, int fh);
 		static void SetBufferWinConsole(short buffer_w, short buffer_h);
-		static void WriteOnConsole(const std::string& Buffer,COORD line_to_start_rendering);
-		static void SetConsoleThem(const AE::GWindow::EConsoleColor& Background_color, const AE::GWindow::EConsoleColor& Forground_color, const std::string& buffer);
-		static void InitconsoleCharacter(const size_t buffersize, const std::string& buffer);
+		static void WriteOnConsole(short* arr_symbole, short* arr_color /*, COORD line_to_start_rendering*/);
+		static void SetConsoleThem(short* arr_color);
+		static void InitconsoleCharacter(short* arr_symbole);
 	private:
-		GWindow()=default;
+		GWindow() = default;
 		~GWindow() = default;
 		static inline HANDLE m_win;
 		static inline COORD m_Buffer_size;
 		static inline CHAR_INFO* m_buffscreen;
+	};
+
+	///helper class for accesing width and height of the window(rendere,buffer,etc ...) for knowing the size of window staticly
+	class GScreen
+	{
+	public:
+		//GScreen() = delete;
+		//~GScreen() = delete;
+
+		static void Set_Size(int screen_width, int screen_height)
+		{
+			m_screen_width = screen_width;
+
+			m_screen_height = screen_height;
+
+		}
+
+		static int Get_with()
+		{
+			return m_screen_width;
+		}
+		static int Get_heigth()
+		{
+			return m_screen_height;
+		}
+	private:
+		static inline int m_screen_width {};
+		static inline int m_screen_height {};
 	};
 }

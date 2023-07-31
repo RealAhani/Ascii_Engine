@@ -4,19 +4,19 @@
 namespace AE
 {
 
-	GBuffer::GBuffer(s_uint width, s_uint height) : m_width { width }, m_height { height }
+	GBuffer::GBuffer() 
 	{
 		m_Sprites.reserve(150);
 		m_Sprites.resize(150);
-		Init_Buffer(width, height);
+		Init_Buffer();
 	}
 	GBuffer::~GBuffer()
 	{
 		Clear_Buffer();
 	}
-	void GBuffer::Init_Buffer(s_uint width, s_uint height)
+	void GBuffer::Init_Buffer()
 	{
-		const auto& t_size = width * height;
+		int t_size = GScreen::Get_with() * GScreen::Get_heigth();
 		m_buffer_pixles_symboles = new  short[t_size]
 		{};
 		m_buffer_pixles_colors = new  short[t_size]
@@ -27,12 +27,16 @@ namespace AE
 		delete m_buffer_pixles_symboles;
 		delete m_buffer_pixles_colors;
 		m_buffer_pixles_symboles = m_buffer_pixles_colors = nullptr;
-		m_width = m_height = 0;
+		Clear_Sprite();
 	}
 	// Add to Sprite
 	void GBuffer::Add_Sprite(const GSprite& sprite)
 	{
 		m_Sprites.emplace_back(sprite);
+	}
+	void GBuffer::Clear_Sprite()
+	{
+		m_Sprites.clear();
 	}
 	// Sort Sprite Array Based on Zbuffer 
 	///TO DO Z BUFFER SHOULD CREATE
@@ -73,14 +77,14 @@ namespace AE
 				const auto& pos = res.Get_Sprite_Position();
 				for (s_uint y = 0; y < res.Get_Sprite_Hight(); ++y)
 				{
-					if (y + pos.y >= m_height)
+					if (y + pos.y >= GScreen::Get_heigth())
 						break;
 					for (s_uint x = 0; x < res.Get_Sprite_Width(); ++x)
 					{
-						if (x + pos.x >= m_width)
+						if (x + pos.x >= GScreen::Get_with())
 							break;
-						m_buffer_pixles_symboles[AE::GPuzzle::GHelper::Whatis_index(m_width, x + pos.x, y + pos.y)] =
-							res.Get_Symboles_Array().at(AE::GPuzzle::GHelper::Whatis_index(res.Get_Sprite_Width(), x, y));
+						m_buffer_pixles_symboles[AE::GPuzzle::GHelper::Whatis_index<int>(GScreen::Get_with(), x + pos.x, y + pos.y)] =
+							res.Get_Symboles_Array().at(AE::GPuzzle::GHelper::Whatis_index<int>(res.Get_Sprite_Width(), x, y));
 					}
 				}
 			}
@@ -95,14 +99,14 @@ namespace AE
 				const auto& pos = res.Get_Sprite_Position();
 				for (s_uint y = 0; y < res.Get_Sprite_Hight(); ++y)
 				{
-					if (y + pos.y >= m_height)
+					if (y + pos.y >= GScreen::Get_heigth())
 						break;
 					for (s_uint x = 0; x < res.Get_Sprite_Width(); ++x)
 					{
-						if (x + pos.x >= m_width)
+						if (x + pos.x >= GScreen::Get_with())
 							break;
-						m_buffer_pixles_colors[AE::GPuzzle::GHelper::Whatis_index(m_width, x + pos.x, y + pos.y)] =
-							res.Get_Colors_Array().at(AE::GPuzzle::GHelper::Whatis_index(res.Get_Sprite_Width(), x, y));
+						m_buffer_pixles_colors[AE::GPuzzle::GHelper::Whatis_index<int>(GScreen::Get_with(), x + pos.x, y + pos.y)] =
+							res.Get_Colors_Array().at(AE::GPuzzle::GHelper::Whatis_index<int>(res.Get_Sprite_Width(), x, y));
 					}
 				}
 			}
@@ -126,7 +130,7 @@ namespace AE
 	// Correct empty pixles and get all thing to gether and send to GRendere
 	void GBuffer::Currect_Empty_Index_Buffer()
 	{
-		const auto& temp_size = m_width * m_height;
+		const auto& temp_size = GScreen::Get_with() * GScreen::Get_heigth();
 		for (size_t i = 0; i < temp_size; ++i)
 		{
 			if (m_buffer_pixles_symboles[i] == 0)
