@@ -14,20 +14,24 @@ namespace AE
 	{
 
 		Clear_Screen();
-		std::string test = "Game Timer: " + std::to_string(( int )GTimer::Get_Global_ElapsedTime()) + "    " + s_pressedkey.key + std::to_string(s_pressedkey.value)
-			+ "  " + "FPS: " + std::to_string(Frame_Setting::Get_FPS(( int )delta_time)) + " Latency(ms): " + std::to_string(( int )delta_time);
-		test.resize(test.size() + 7);
-		//std::array<short, 10> arr_colors { {{1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}} };
+		if (m_buffer)
+		{
+			std::string test = "Game Timer: " + std::to_string(( int )GTimer::Get_Global_ElapsedTime()) + "    " + s_pressedkey.key + std::to_string(s_pressedkey.value)
+				+ "  " + "FPS: " + std::to_string(Frame_Setting::Get_FPS(( int )delta_time)) + " Latency(ms): " + std::to_string(( int )delta_time);
+			test.resize(test.size() + 7);
+			//std::array<short, 10> arr_colors { {{1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}} };
 
-		GSprite sp1(test, test.size(), 1, AE::GVector::Point2D { 1, 0 });
+			GSprite sp1(test, test.size(), 1, AE::GVector::Point2D { 1, 0 });
 
-		GSprite sp2(AE::GPuzzle::prize::You_win, AE::GPuzzle::prize::You_win.size()/16, 16, AE::GVector::Point2D {0,2});
-		//GSprite sp2(str, str.size() / 12, 12, AE::GVector::Point2D { 0,3 });
-		//mem leak
-		m_buffer->Add_Sprite(sp1);
-		m_buffer->Add_Sprite(sp2);
-		m_buffer->Fill_Pixels_Symboles();
-		m_buffer->Fill_Pixels_Color();
+			GSprite sp2(AE::GPuzzle::prize::You_win, AE::GPuzzle::prize::You_win.size() / 16, 16, AE::GVector::Point2D { 0,2 });
+			//GSprite sp2(str, str.size() / 12, 12, AE::GVector::Point2D { 0,3 });
+			//mem leak
+			m_buffer->Add_Sprite(sp1);
+			m_buffer->Add_Sprite(sp2);
+			m_buffer->Fill_Pixels_Symboles();
+			m_buffer->Fill_Pixels_Color();
+		}
+		
 		Draw_On_Screen();
 	}
 
@@ -92,13 +96,17 @@ namespace AE
 
 	void GRender::Draw_On_Screen()
 	{
+		if(m_buffer)
 		GWindow::WriteOnConsole(m_buffer->Get_Buffer_Symboles_Array(), m_buffer->Get_Buffer_Color_Array());
 	}
 	void GRender::Clear_Screen()
 	{
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD { 0,0 });
-		if (m_buffer->Get_Sprites().size() > 0)
-			m_buffer->Clear_Sprite();
+		if (m_buffer)
+		{
+			if (m_buffer->Get_Sprites().size() > 0)
+				m_buffer->Clear_Sprite();
+		}
 	}
 }
 
