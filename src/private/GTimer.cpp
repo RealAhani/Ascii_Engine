@@ -1,3 +1,7 @@
+///Copyright(c) 2023 Alireza Ahani all rigth reserved
+///MIT License
+/// 
+
 #include "Engine_PCH.hpp"
 #include "GTimer.hpp"
 AE::GTimer::ETimer_Mode AE::GTimer::s_Global_mode{};

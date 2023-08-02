@@ -1,4 +1,8 @@
-﻿#include "Engine_PCH.hpp"
+﻿///Copyright(c) 2023 Alireza Ahani all rigth reserved
+///MIT License
+/// 
+
+#include "Engine_PCH.hpp"
 #include "GameInit.hpp"
 #include "GRender.hpp"
 #include "PuzzleGame.hpp"

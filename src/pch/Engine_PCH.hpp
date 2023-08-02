@@ -1,3 +1,7 @@
+///Copyright(c) 2023 Alireza Ahani all rigth reserved
+///MIT License
+/// 
+
 #ifndef A_E_PCH_HPP
 #define A_E_PCH_HPP
 #include <iostream>
