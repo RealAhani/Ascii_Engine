@@ -1,11 +1,10 @@
-### Ascii_Engine
+# Ascii_Engine
 
--a game engine with ascii rendering and windows only support (for now).
+- game engine with ascii rendering and windows only support (for now).
+- use main branch for functionality.
+- use Dev branch for latest update and functionality but (may not work) at this time.
 
--use main branch for functionality.
+## Windows
 
--use Dev branch for latest update and functionality but (may not work) at this time.
-
--this repo dont support any build system like cmake till now but coming soon.
-
--for now  you should create a project with VS and configure Precompile header (pch folder)
+- Make sure you installed cmake and visual_studio (g++ is not supported)
+- Build the Engine with running build.bat
