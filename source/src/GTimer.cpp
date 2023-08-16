@@ -2,7 +2,6 @@
 ///MIT License
 /// 
 
-#include "Engine_PCH.hpp"
 #include "GTimer.hpp"
 AE::GTimer::ETimer_Mode AE::GTimer::s_Global_mode{};
 AE::GTimer::GTPoint AE::GTimer::s_elapsedtime{};
