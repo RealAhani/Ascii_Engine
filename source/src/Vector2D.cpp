@@ -2,8 +2,8 @@
 ///MIT License
 /// 
 
-#include "Engine_PCH.hpp"
 #include "Vector2D.hpp"
+
 namespace AE::GVector
 {
 	Vector2D::Vector2D(const int x, const int y) :m_vec_point { x,y },

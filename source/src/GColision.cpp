@@ -2,7 +2,6 @@
 ///MIT License
 /// 
 
-#include <Engine_PCH.hpp>
 #include "GColision.hpp"
 
 template<size_t size>
